@@ -1,0 +1,41 @@
+.homeinfo {
+  padding: 40px;
+  padding-right: 400px;
+  color: #000000;
+  margin-left: 100px;
+  background: linear-gradient(to left, rgba(240, 235, 235, 0), #709239);
+}
+.content0 {
+  background-color: #a8a9aa;
+  width: 400px;
+  box-shadow: 0px 0px 50px #4d4d4d inset;
+  overflow: hidden;
+  max-height: 400px;
+}
+
+.h1tag {
+  padding: 10px;
+  padding-left: 18px;
+  background: #1c3801;
+  box-shadow: 0px 0px 15px #79a00e inset;
+  text-align: left;
+  color: rgb(194, 194, 194);
+
+  margin: 0px;
+}
+.marq {
+  padding: 4px;
+  height: 300px;
+}
+.ptag {
+  background-color: #7c7c7c;
+  box-shadow: 0px 0px 15px #494848 inset;
+  padding-left: 20px;
+  padding: 10px;
+}
+.homeflex {
+  background-color: #a9c588;
+  min-height: fit-content;
+  display: flex;
+  justify-content: space-between;
+}
