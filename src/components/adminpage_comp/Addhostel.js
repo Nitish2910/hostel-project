@@ -13,7 +13,6 @@ class Addhostel extends React.Component {
     handicappedRoomrange: "",
     wrap: ""
   };
-
   nextStep = () => {
     const { step } = this.state;
     this.setState({
