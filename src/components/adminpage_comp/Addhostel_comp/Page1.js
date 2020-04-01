@@ -1,111 +1,110 @@
 //  hostel details....
 import React from "react";
-import CheckError from "./errorCheck";
+import validateRange from "./errorCheck";
 
 class Page1 extends React.Component {
-  state = {
-    error: "",
-    errormsg: ""
-  };
+    state = {
+        errormessage: ""
+    };
 
-  saveAndContinue = (e) => {
-    if (!this.state.error) {
-      e.preventDefault();
-      this.props.nextStep();
-    } else {
-      this.setState(() => ({ errormsg: this.state.error, error: "" }));
-      e.preventDefault();
-      this.props.currentStep();
+    saveAndContinue = e => {
+        e.preventDefault();
+        const elements = e.target.elements;
+        const hostelData = {};
+        hostelData.hostelName = elements.hostelName.value;
+        hostelData.roomCapacity = elements.roomCapacity.value;
+        hostelData.roomRange = elements.roomRange.value;
+        hostelData.disabledRoomRange = elements.disabledRoomRange.value;
+        hostelData.wrapAround = elements.wrapAround.checked;
+
+        try {
+            validateRange(hostelData.roomRange, "Room Range");
+            if (hostelData.disabledRoomRange) {
+                validateRange(
+                    hostelData.disabledRoomRange,
+                    "Room Range for physically disabled"
+                );
+            }
+
+            // call axios for adding the hostel to database
+
+            this.props.handleChange(hostelData);
+            this.props.nextStep();
+            this.setState(() => ({ errormessage: "" }));
+        } catch (e) {
+            this.setState(() => ({ errormessage: e.message }));
+        }
+    };
+
+    render() {
+        return (
+            <div>
+                <h1 className="heading111">Add New Hostel</h1>
+                {this.state.errormessage && (
+                    <p className="errorshow">{this.state.errormessage}</p>
+                )}
+                <form onSubmit={this.saveAndContinue}>
+                    <h4>Enter Hostel Details</h4>
+                    <p>Hostel Name</p>
+                    <input
+                        type="text"
+                        name="hostelName"
+                        placeholder="hostel name"
+                        defaultValue={this.props.values.hostelName}
+                        required={true}
+                    />
+                    <p>Each room capacity</p>
+                    <select
+                        name="roomCapacity"
+                        defaultValue={this.props.values.roomCapacity}
+                    >
+                        <option value="1">1 person</option>
+                        <option value="2">2 persons</option>
+                        <option value="3">3 persons</option>
+                        <option value="4">4 persons</option>
+                        <option value="5">5 persons</option>
+                        <option value="6">6 persons</option>
+                    </select>
+                    <p>Rooms Range (eg. G1-G8, F1-F5, F7)</p>
+                    <input
+                        type="text"
+                        placeholder="rooms range"
+                        name="roomRange"
+                        defaultValue={this.props.values.roomRange}
+                        required={true}
+                    />
+                    <p>Rooms range for physically disabled</p>
+                    <input
+                        type="text"
+                        placeholder="rooms range"
+                        name="disabledRoomRange"
+                        defaultValue={this.props.values.disabledRoomRange}
+                    />
+                    <div>
+                        <label>
+                            <p>
+                                <input
+                                    type="checkbox"
+                                    name="wrapAround"
+                                    defaultChecked={
+                                        this.props.values.wrapAround
+                                    }
+                                />
+                                Wrap Around
+                            </p>
+                        </label>
+                    </div>
+                    <p>
+                        <input
+                            type="submit"
+                            name="submit"
+                            value="Save and Next"
+                        />
+                    </p>
+                </form>
+            </div>
+        );
     }
-  };
-  // handleChange = (input) => (event) => {
-  //   this.setState({ [input]: event.target.value });
-  // };
-
-  render() {
-    const { values } = this.props;
-    const error1 = this.state.error;
-    return (
-      <div>
-        <h1 className="heading111">Add New Hostel</h1>
-        {this.state.errormsg ? <p>{this.state.errormsg}</p> : ""}
-        <form
-          onSubmit={
-            ((
-              <CheckError
-                handicappedRoomrange={values.handicappedRoomrange}
-                roomRange={values.roomRange}
-                error={error1}
-                // handleChange={this.handleChange}
-              />
-            ),
-            this.saveAndContinue)
-          }
-        >
-          <h4>Enter Hostel Details</h4>
-          <p>Hostel Name</p>
-          <input
-            type="text"
-            placeholder="hostel name"
-            onChange={this.props.handleChange("hostelName")}
-            defaultValue={values.hostelName}
-            required={true}
-          />{" "}
-          <p>Each room capacity</p>
-          <select
-            onChange={this.props.handleChange("roomCapacity")}
-            defaultValue={values.roomCapacity}
-          >
-            <option value="1">1 person</option>
-            <option value="2">2 persons</option>
-            <option value="3">3 persons</option>
-            <option value="4">4 persons</option>
-            <option value="5">5 persons</option>
-            <option value="6">6 persons</option>
-          </select>
-          <p>Rooms Range(eg. (G1-G8),(F1-F10),(F12-F30))</p>
-          <input
-            placeholder="rooms range"
-            onChange={this.props.handleChange("roomRange")}
-            defaultValue={values.roomRange}
-            required={true}
-          />
-          <p>Rooms range for physically disabled</p>
-          <input
-            placeholder="rooms range"
-            onChange={this.props.handleChange("handicappedRoomrange")}
-            defaultValue={values.handicappedRoomrange}
-            required={true}
-          />
-          <p>Wrap Around</p>
-          <label>
-            <input
-              type="radio"
-              name="wrap"
-              value="yes"
-              onChange={this.props.handleChange("wrap")}
-              required={true}
-            />
-            Yes
-          </label>
-          <span> </span>
-          <label>
-            <input
-              type="radio"
-              name="wrap"
-              value="no"
-              onChange={this.props.handleChange("wrap")}
-              required={true}
-            />
-            No
-          </label>
-          <p>
-            <input type="submit" name="submit" value="Save and Next" />
-          </p>
-        </form>
-      </div>
-    );
-  }
 }
 
 export default Page1;
