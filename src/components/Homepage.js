@@ -5,7 +5,7 @@ class Homepage extends React.Component {
   render() {
     return (
       <div className="homeflex">
-        <div className="homeinfo">
+        <div className="home-cotent-1">
           <p> plz provide suggestions what to present here here!!!!</p>
           <p> plz provide suggestions what to present here here!!!!</p>
           <p> plz provide suggestions what to present here here!!!!</p>
@@ -13,7 +13,9 @@ class Homepage extends React.Component {
           <p> plz provide suggestions what to present here here!!!!</p>
           <p> plz provide suggestions what to present here here!!!!</p>
         </div>
-        <Notice />
+        <div className="home-content-2">
+          <Notice />
+        </div>
       </div>
     );
   }

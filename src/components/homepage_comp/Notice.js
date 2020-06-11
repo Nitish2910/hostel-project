@@ -3,7 +3,7 @@ import axios from "axios";
 
 class Notice extends React.Component {
   state = {
-    students: ["nitish", "vivek", "vivek", "anonymous"]
+    students: [],
   };
 
   createNoticeElement = () =>
@@ -15,9 +15,27 @@ class Notice extends React.Component {
 
   componentDidMount = async () => {
     try {
-      const data = await axios.get("http://localhost:5000/getNotification");
+      const data = await axios.get(
+        "https://hostel-allotment-api.herokuapp.com/getNotification"
+      );
+      console.log(data.data);
+      const s = [];
+      data.data.forEach((d) => {
+        let x = "";
+        if (d.editable) {
+          x = `${d.name} result is declared`;
+        } else {
+          const date = new Date(d.Date).toString();
+          x = `${d.name} allotment scheduled on ${date.slice(0, 15)}`;
+          console.log(new Date(d.Date));
+        }
+        s.push(x);
+      });
+      if (s.length === 0) {
+        s.push("No notifications to show");
+      }
       this.setState((state) => ({
-        students: state.students.concat(data.data)
+        students: s,
       }));
     } catch (e) {
       console.log(e);
@@ -25,10 +43,19 @@ class Notice extends React.Component {
   };
   render() {
     return (
-      <div className="content0">
+      <div className="notice">
         <h1 className="h1tag">Notifications</h1>
-        <marquee className="marquee_content" direction="up" className="marq">
-          <div>{this.createNoticeElement()}</div>
+        <marquee className="marq" direction="up" scrollamount="3">
+          <div>
+            {/* temporary data */}
+            <p className="ptag">
+              Demo notice 1 Demo notice 1 Demo notice 1 Demo notice 1 Demo
+              notice 1 Demo notice 1 Demo notice 1
+            </p>
+            <p className="ptag">Demo notice 2</p>
+            <p className="ptag">Demo notice 3</p>
+            {this.createNoticeElement()}
+          </div>
         </marquee>
       </div>
     );

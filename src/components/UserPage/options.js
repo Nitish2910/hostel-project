@@ -2,42 +2,34 @@ import React from "react";
 
 const Option = (props) => (
   <div className="roomoptions">
-    <span className="listname">
+    <div className="listname">
+      {" "}
       {props.position}. {props.roomText}
-    </span>
+    </div>
 
-    <span>
+    <div>
+      {" "}
       <button
-        className="movebutton"
+        className="movebuttonup"
         disabled={props.position === 1 ? true : false}
         onClick={(e) => {
           props.handleUpOption(props.roomText);
         }}
-      >
-        move up
-      </button>
-    </span>
-    <span>
+      ></button>
       <button
-        className="movebutton"
+        className="movebuttondown"
         disabled={props.position === props.length ? true : false}
         onClick={(e) => {
           props.handleDownOption(props.roomText);
         }}
-      >
-        move down
-      </button>
-    </span>
-    <span>
+      ></button>
       <button
-        className="movebutton"
+        className="movebuttoncancel"
         onClick={(e) => {
           props.handleDeleteOption(props.roomText);
         }}
-      >
-        remove
-      </button>
-    </span>
+      ></button>
+    </div>
   </div>
 );
 

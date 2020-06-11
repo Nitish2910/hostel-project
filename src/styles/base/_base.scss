@@ -3,6 +3,7 @@ html {
 }
 
 body {
+  background-color: #070707;
   font-family: Helvetica, Arial, sans-serif;
   font-size: $m-size;
 }
@@ -22,15 +23,10 @@ button:disabled {
   background-color: #38363d;
   text-decoration: none;
 }
-.allheadings {
-  background-color: #ffffff;
-  box-shadow: 0px 0px 22px #01339e inset;
-  margin: 0px;
-  padding: 0px;
-  text-align: right;
-  color: #520101;
-}
+
 .basicflex {
+  min-width: 400px;
+  margin: 0px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

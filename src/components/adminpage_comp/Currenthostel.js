@@ -1,26 +1,67 @@
 import React from "react";
+import axios from "axios";
 import Modal from "react-modal";
 
 class Currenthostel extends React.Component {
   state = {
-    options: ["hostel-1", "hostel-2", "hostel-3"],
-    selectedOption: undefined,
-    notRemove: false
+    hostels: [],
+    selectedOptionName: undefined,
+    selectedOptionId: undefined,
   };
-  handleDeleteOption = (optionToRemove) => {
-    if ({ optionToRemove }) {
-      this.setState((prevState) => ({
-        options: prevState.options.filter(
-          (option) => optionToRemove !== option
-        ),
-        selectedOption: undefined
+
+  componentDidMount = async () => {
+    //load all the hostels of admin
+    //and store it to state
+    try {
+      const url = "https://hostel-allotment-api.herokuapp.com/admin/hostels";
+      const config = {
+        headers: {
+          Authorization: JSON.parse(localStorage.getItem("userData")).token,
+        },
+      };
+      const Hostels = await axios.get(url, config);
+      //console.log(Hostels.data);
+      this.setState(() => ({ hostels: Hostels.data }));
+    } catch (e) {}
+  };
+
+  handleSelected = (name, id) => {
+    this.setState(() => ({
+      selectedOptionName: name,
+      selectedOptionId: id,
+    }));
+  };
+
+  handleRemove = async (e) => {
+    try {
+      if (e.target.id === "yes") {
+        // sending delete request
+        const url = `https://hostel-allotment-api.herokuapp.com/admin/${this.state.selectedOptionId}`;
+        const config = {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("userData")).token,
+          },
+        };
+        await axios.delete(url, config);
+
+        this.setState((prevState) => ({
+          hostels: prevState.hostels.filter(
+            (hostel) => hostel._id !== this.state.selectedOptionId
+          ),
+        }));
+      }
+      this.setState(() => ({
+        selectedOptionName: undefined,
+        selectedOptionId: undefined,
       }));
-    } else {
-      this.setState(() => ({ selectedOption: undefined }));
-    }
+    } catch (er) {}
   };
-  handleselected = (optionToRemove) => {
-    this.setState(() => ({ selectedOption: optionToRemove }));
+
+  handleEdit = (e) => {
+    const hostelDetail = this.state.hostels.find(
+      (hostel) => hostel._id === e.target.id
+    );
+    this.props.edithostel(hostelDetail);
   };
   render() {
     return (
@@ -31,24 +72,39 @@ class Currenthostel extends React.Component {
           hostels
         </p>
         <div className="overflowcontrol">
-          {this.state.options.length === 0 && (
+          {this.state.hostels.length === 0 && (
             <p className="errorshow">! No Hostels added yet</p>
           )}
 
           <div className="divcurrenthostels">
-            {this.state.options.map((option, index) => (
-              <div key={option}>
+            {this.state.hostels.map((hostel, index) => (
+              <div key={index}>
                 <div className="currenthostels">
-                  <div>
-                    {index + 1}. {option}
+                  <div className="hostelnamesflex">
+                    <div>{index + 1}.</div>
+                    <div>{hostel.name}</div>
                   </div>
-                  <div>
-                    <button className="removebutton">Edit</button>
+                  <div className="fixedbuttons">
                     <button
                       className="removebutton"
-                      onClick={(e) => {
-                        this.handleselected(option);
-                      }}
+                      onClick={(e) => this.props.showUsers(hostel)}
+                    >
+                      Show Users
+                    </button>
+                    <button
+                      className="removebutton"
+                      id={hostel._id}
+                      onClick={this.handleEdit}
+                      disabled={hostel.Date !== null}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="removebutton"
+                      disabled={hostel.Date !== null}
+                      onClick={(e) =>
+                        this.handleSelected(hostel.name, hostel._id)
+                      }
                     >
                       Remove
                     </button>
@@ -59,26 +115,24 @@ class Currenthostel extends React.Component {
           </div>
           <Modal
             ariaHideApp={false}
-            isOpen={!!this.state.selectedOption}
+            isOpen={!!this.state.selectedOptionId}
             contentLabel="selected"
             className="modal"
           >
-            <h4>Are you sure to remove {this.state.selectedOption}</h4>
+            <h4>Are you sure to remove {this.state.selectedOptionName}</h4>
 
             <div className="yesno-space">
               <button
                 className="modalbutton"
-                onClick={(e) => {
-                  this.handleDeleteOption(this.state.selectedOption);
-                }}
+                id="yes"
+                onClick={this.handleRemove}
               >
                 Yes
               </button>
               <button
                 className="modalbutton"
-                onClick={(e) => {
-                  this.handleDeleteOption(this.state.notRemove);
-                }}
+                id="no"
+                onClick={this.handleRemove}
               >
                 No
               </button>

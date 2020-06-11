@@ -3,7 +3,7 @@ import ChangeAdminpassword from "./ChangeAdminpassword";
 
 export default class AdminInfo extends React.Component {
   state = {
-    infobutton: true
+    infobutton: true,
   };
 
   handleinfo = () => {
@@ -37,18 +37,22 @@ export default class AdminInfo extends React.Component {
             </button>
           </div>
           <div className="overflowcontrol">
-            {this.state.infobutton ? yourinfo() : <ChangeAdminpassword />}
+            {this.state.infobutton ? (
+              yourinfo(this.props.User.name)
+            ) : (
+              <ChangeAdminpassword />
+            )}
           </div>
         </div>
       </div>
     );
   }
 }
-const yourinfo = () => {
+const yourinfo = (name) => {
   return (
     <div className="spacing">
-      <h4>hello vivek</h4>
-      <p>your room allotment is under process</p>
+      <h4>Welcome back {name}</h4>
+      <p>Your room allotment is under process.</p>
     </div>
   );
 };

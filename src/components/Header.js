@@ -1,18 +1,21 @@
 import React from "react";
-import { NavLink, Redirect } from "react-router-dom";
-import Success from "./adminpage_comp/Addhostel_comp/Page4";
+import { NavLink } from "react-router-dom";
 
 class Header extends React.Component {
   render() {
     return (
       <div className="header0">
-        {/* temporary */}
-        <NavLink to="/admincheck">admin-check</NavLink>{" "}
         <div>
-          <p className="header01">
-            Welcome To Hostel Rooms Allocation App. ...
-          </p>
-          <p className="header1">..a better platform for easy allocations</p>
+          <div className="headerflex">
+            <div className="logoinssertion"></div>
+            <div>
+              {" "}
+              <div className="header01">Hostel Rooms Allotment System</div>
+              <div className="header1">
+                ..a better platform for easy allocations
+              </div>
+            </div>
+          </div>
         </div>
         <div className="nav0">
           <div>
@@ -25,18 +28,38 @@ class Header extends React.Component {
             >
               Home
             </NavLink>
-            <NavLink to="/login" className="nav1" activeClassName="nav2">
-              {" "}
-              LogIn{" "}
-            </NavLink>
-            <NavLink to="/signup" className="nav1" activeClassName="nav2">
-              {" "}
-              SignUp{" "}
-            </NavLink>
+            {(this.props.admin || this.props.user) && (
+              <NavLink
+                to={this.props.admin ? "/admin" : "/user"}
+                className="nav1"
+                activeClassName="nav2"
+              >
+                {" "}
+                {this.props.admin ? "Admin" : "User"}{" "}
+              </NavLink>
+            )}
+            {!(this.props.admin || this.props.user) && (
+              <NavLink to="/login" className="nav1" activeClassName="nav2">
+                {" "}
+                LogIn{" "}
+              </NavLink>
+            )}
+            {!(this.props.admin || this.props.user) && (
+              <NavLink to="/signup" className="nav1" activeClassName="nav2">
+                {" "}
+                SignUp{" "}
+              </NavLink>
+            )}
             <NavLink to="/help" className="nav1" activeClassName="nav2">
               {" "}
               Support{" "}
             </NavLink>
+            {(this.props.admin || this.props.user) && (
+              <NavLink to="/" onClick={this.props.logout} className="logout">
+                {" "}
+                LogOut{" "}
+              </NavLink>
+            )}
           </div>
           <div>{/* logout button here */}</div>
         </div>
