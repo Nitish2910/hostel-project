@@ -1,14 +1,17 @@
 import React from "react";
 import axios from "axios";
 import Modal from "react-modal";
+import ModalLoad from "../LoadingModal.js";
 
 class Upcomingevents extends React.Component {
   state = {
     hostels: [],
     selectedOptionId: undefined,
     selectedOptionName: undefined,
+    modalshow: undefined,
   };
   componentDidMount = async () => {
+    this.setState(() => ({ modalshow: true }));
     try {
       const url =
         "https://hostel-allotment-api.herokuapp.com/admin/hostels?final=true";
@@ -24,6 +27,7 @@ class Upcomingevents extends React.Component {
     } catch (e) {
       // handle error if something went wrong
     }
+    this.setState(() => ({ modalshow: undefined }));
   };
   handleDeleteOption = async (e) => {
     try {
@@ -71,6 +75,7 @@ class Upcomingevents extends React.Component {
   render() {
     return (
       <div>
+        {this.state.modalshow && <ModalLoad />}
         <h1 className="heading111">Upcoimg Allotments </h1>
         <p>Here you can cancel the scheduled allotments of hostels.</p>
         <div className="overflowcontrol">

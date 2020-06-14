@@ -47,6 +47,8 @@ class Userpage extends React.Component {
 
   render() {
     //console.log(this.props.User.disabled)
+    //console.log(this.props.User.vacantRooms)
+    //this.props.User.vacantRooms = JSON.parse(this.props.User.vacantRooms)
     return (
       <div className="flex-container0">
         <div className="flex-container1">
@@ -56,13 +58,29 @@ class Userpage extends React.Component {
           >
             User Info
           </button>
-          <button
-            className={this.state.addPreferences ? "buttonactive" : "flexdiv"}
-            onClick={this.addPreferences}
-            disabled={!this.props.User.editable}
-          >
-            Add Preferences
+          {this.props.User.editable
+            &&
+            !this.props.User.editable
+            &&
+            <button
+              className={this.state.addPreferences ? "buttonactive" : "flexdiv"}
+              onClick={this.addPreferences}
+              disabled={!this.props.User.editable}
+            >
+              Add Preferences
           </button>
+
+          }
+          {this.props.User.editable
+            &&
+            <button
+              className={this.state.addPreferences ? "buttonactive" : "flexdiv"}
+              onClick={this.addPreferences}
+              disabled={!this.props.User.editable}
+            >
+              Add Preferences
+          </button>
+          }
           <button
             className={this.state.allotmentResult ? "buttonactive" : "flexdiv"}
             onClick={this.allotmentResult}

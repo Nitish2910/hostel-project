@@ -3,6 +3,9 @@ import axios from "axios";
 import Option from "./options";
 import Select from "react-select";
 import Modal from "react-modal";
+import OptionModal from "./vacantRoomModel";
+import logo from "./../../styles/components/questionmark.png";
+
 
 export default class AddPrefernces extends React.Component {
   state = {
@@ -24,13 +27,20 @@ export default class AddPrefernces extends React.Component {
           ? this.props.User.disabledRooms[0].rooms
           : []
         : this.props.User.vacantRooms.length > 0
-        ? this.props.User.vacantRooms[0].rooms
-        : [],
+          ? this.props.User.round === 2
+            ? this.props.User.vacantRooms[0].rooms.map((room) => room[0])
+            : this.props.vacantRooms[0].rooms
+          : [],
     disabledQuota: this.props.User.disabledQuota,
     errormessage: undefined,
     error: undefined,
     value: "",
+    //for vacant field purpose
+    openVacantModal: false,
   };
+
+
+
 
   checkPreferenceList = (Room) => {
     if (this.props.User.disabled && this.state.disabledQuota) {
@@ -142,6 +152,7 @@ export default class AddPrefernces extends React.Component {
     const prefix = e.target.elements.floors.value;
     const roomNo = e.target.elements.roomNo.value;
     const room = prefix + roomNo;
+    //console.log(roomNo)
     if (!roomNo) {
       this.setState(() => ({
         errormessage: "Please select any room!",
@@ -177,9 +188,13 @@ export default class AddPrefernces extends React.Component {
         if (detail.prefix === floorNo) rooms = detail.rooms;
       });
     } else {
-      this.props.User.vacantRooms.forEach((detail) => {
-        if (detail.prefix === floorNo) rooms = detail.rooms;
-      });
+      this.props.User.round === 2 ? this.props.User.vacantRooms.forEach((detail) => {
+        if (detail.prefix === floorNo)
+          rooms = detail.rooms.map((room) => room[0])
+      })
+        : this.props.User.vacantRooms.forEach((detail) => {
+          if (detail.prefix === floorNo) rooms = detail.rooms;
+        });
     }
     this.setState(() => ({ rooms: rooms, value: "", floorNo: floorNo }));
   };
@@ -245,8 +260,10 @@ export default class AddPrefernces extends React.Component {
   };
   changeSelect = (value) => {
     this.setState(() => ({ value: value }));
+
   };
   showRooms = () => {
+
     if (this.state.rooms.length > 0) {
       return (
         <div className="room">
@@ -299,8 +316,20 @@ export default class AddPrefernces extends React.Component {
       />
     ));
   };
+
+  /*open vacant function Modal*/
+  changeVacantModel = () => {
+    this.setState(() => ({ openVacantModal: !this.state.openVacantModal }))
+  }
+
+
+  //close 
+
   //render
   render() {
+    // console.log(this.props.User.vacantRooms)
+    // console.log(this.state.rooms)
+    // console.log(this.state.normalPreferences)
     return (
       <div>
         <h1 className="heading111">Select your preferences</h1>
@@ -329,6 +358,23 @@ export default class AddPrefernces extends React.Component {
           <div className="preferenceflex">
             <div>
               {" "}
+              {this.props.User.round === 2 &&
+                <div>
+                  <p>Check your vacant room
+                    <button
+                      onClick={this.changeVacantModel}
+                      className="question-mark-button"
+                    >
+                      <img src={logo} className="content-button" alt="?" />
+                      {/*&#10068;*/}
+                    </button>
+                  </p>
+                  <OptionModal
+                    vacantRooms={this.props.User.vacantRooms}
+                    openVacantModal={this.state.openVacantModal}
+                    changeVacantModel={this.changeVacantModel}
+                  />
+                </div>}
               <form className="addroomform" onSubmit={this.handleAddRoom}>
                 {this.props.User.disabled && (
                   <p>

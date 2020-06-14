@@ -48,12 +48,7 @@ class Notice extends React.Component {
         <marquee className="marq" direction="up" scrollamount="3">
           <div>
             {/* temporary data */}
-            <p className="ptag">
-              Demo notice 1 Demo notice 1 Demo notice 1 Demo notice 1 Demo
-              notice 1 Demo notice 1 Demo notice 1
-            </p>
-            <p className="ptag">Demo notice 2</p>
-            <p className="ptag">Demo notice 3</p>
+
             {this.createNoticeElement()}
           </div>
         </marquee>

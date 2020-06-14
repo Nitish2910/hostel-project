@@ -3,6 +3,7 @@ import axios from "axios";
 import SearchPanel from "./searchPanel";
 import ContentTable from "./ContentTable";
 import Pagination from "./pagination";
+import ModalLoad from "../LoadingModal.js";
 
 // will get the hostelid and total users from calling component as props
 class ShowUsers extends React.Component {
@@ -19,13 +20,16 @@ class ShowUsers extends React.Component {
       sortBy: "rank",
       order: "asc",
       reset: true,
+      modalshow: undefined,
     };
   }
 
   componentDidMount = async () => {
     //console.log(this.state.hostelid);
+    this.setState(() => ({ modalshow: true }));
     const url = `https://hostel-allotment-api.herokuapp.com/admin/${this.state.hostelid}/users?skip=0&limit=${this.state.limit}&sortBy=rank:asc`;
     await this.loadData(url);
+    this.setState(() => ({ modalshow: undefined }));
   };
 
   loadData = async (url) => {
@@ -85,6 +89,7 @@ class ShowUsers extends React.Component {
   render() {
     return (
       <div className="ShowUsers">
+        {this.state.modalshow && <ModalLoad />}
         <button
           className="swCloseButton"
           onClick={(e) => this.props.closeUsers()}

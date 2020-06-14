@@ -1,17 +1,20 @@
 import React from "react";
 import axios from "axios";
 import Modal from "react-modal";
+import ModalLoad from "../LoadingModal.js";
 
 class Currenthostel extends React.Component {
   state = {
     hostels: [],
     selectedOptionName: undefined,
     selectedOptionId: undefined,
+    modalshow: undefined,
   };
 
   componentDidMount = async () => {
     //load all the hostels of admin
     //and store it to state
+    this.setState(() => ({ modalshow: true }));
     try {
       const url = "https://hostel-allotment-api.herokuapp.com/admin/hostels";
       const config = {
@@ -23,6 +26,7 @@ class Currenthostel extends React.Component {
       //console.log(Hostels.data);
       this.setState(() => ({ hostels: Hostels.data }));
     } catch (e) {}
+    this.setState(() => ({ modalshow: undefined }));
   };
 
   handleSelected = (name, id) => {
@@ -66,6 +70,7 @@ class Currenthostel extends React.Component {
   render() {
     return (
       <div>
+        {this.state.modalshow && <ModalLoad />}
         <h1 className="heading111">Current added hostels </h1>
         <p>
           Here you can delete, modify and schedule allotments for current

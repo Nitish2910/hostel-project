@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-//import {Get} from "../Axios"
+
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Homepage from "../components/Homepage";
 import Loginpage from "../components/Loginpage";
@@ -17,24 +17,32 @@ class AppRouter extends React.Component {
   state = {
     isAdmin: false,
     isUser: false,
+    refresh: false,
   };
 
   //this method is used to check whether the user is logged in or not
   UNSAFE_componentWillMount = async () => {
     if (localStorage.getItem("userData")) {
       try {
+        this.setState(() => ({ refresh: true }));
         const userData = JSON.parse(localStorage.getItem("userData"));
         const url = `https://hostel-allotment-api.herokuapp.com/${
           userData.admin ? "admin" : "user"
         }`;
         const config = { headers: { Authorization: userData.token } };
         const data = await axios.get(url, config);
+        data.data.vacantRooms &&
+          (data.data.vacantRooms = JSON.parse(data.data.vacantRooms));
+        data.data.disabledRooms &&
+          (data.data.disabledRooms = JSON.parse(data.data.disabledRooms));
         this.setState(() => ({
           User: data.data,
           isAdmin: userData.admin,
           isUser: !userData.admin,
+          refresh: false,
         }));
       } catch (e) {
+        this.setState(() => ({ refresh: false }));
         localStorage.removeItem("userData");
       }
     }
@@ -45,6 +53,13 @@ class AppRouter extends React.Component {
     userData.token = data.token;
     userData.admin = data.admin;
     localStorage.setItem("userData", JSON.stringify(userData));
+    console.log(data.User.vacantRooms);
+    /*parsing the vacant room and disable quota*/
+    data.User.vacantRooms &&
+      (data.User.vacantRooms = JSON.parse(data.User.vacantRooms));
+    data.User.disabledRooms &&
+      (data.User.disabledRooms = JSON.parse(data.User.disabledRooms));
+    console.log(data.User.vacantRooms);
     this.setState(() => ({
       isAdmin: data.admin,
       isUser: !data.admin,
@@ -83,37 +98,43 @@ class AppRouter extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <div className="basicflex">
-          <Header
-            logout={this.logout}
-            admin={this.state.isAdmin}
-            user={this.state.isUser}
-          />
-          <div>
-            <Switch>
-              <Route path="/" component={Homepage} exact={true} />
-              <Route path="/login">{this.getComponent(Loginpage)}</Route>
-              <Route path="/signup">{this.getComponent(Signup)}</Route>
-              <Route path="/help" component={HelpPage} />
-              <Route path="/forgotPassword" component={Passwordreset} />
-              {this.state.isUser && (
-                <Route path="/user">
-                  <Userpage User={this.state.User} />
+      !this.state.refresh && (
+        <BrowserRouter>
+          <div className="basicflex">
+            <Header
+              logout={this.logout}
+              admin={this.state.isAdmin}
+              user={this.state.isUser}
+            />
+            <div>
+              <Switch>
+                <Route exact path="/" component={Homepage} exact={true} />
+                <Route exact path="/login">
+                  {this.getComponent(Loginpage)}
                 </Route>
-              )}
+                <Route exact path="/signup">
+                  {this.getComponent(Signup)}
+                </Route>
+                <Route exact path="/help" component={HelpPage} />
+                <Route exact path="/forgotPassword" component={Passwordreset} />
+                {this.state.isUser && (
+                  <Route exact path="/user">
+                    <Userpage User={this.state.User} />
+                  </Route>
+                )}
 
-              {this.state.isAdmin && (
-                <Route path="/admin">
-                  <Adminpage User={this.state.User} />
-                </Route>
-              )}
-              <Route component={NotFoundPage} />
-            </Switch>
+                {this.state.isAdmin && (
+                  <Route exact path="/admin">
+                    <Adminpage User={this.state.User} />
+                  </Route>
+                )}
+                <Route component={NotFoundPage} />
+              </Switch>
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      )
     );
   }
 }

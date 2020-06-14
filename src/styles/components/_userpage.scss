@@ -5,14 +5,16 @@
 }
 .userinfoflex2 {
   padding: 10px;
-  color: rgb(230, 227, 227);
-  background-color: #b1b1b1;
+  color: rgb(0, 0, 0);
+  background-color: #cfcdcd;
+
   border: none;
 }
 .userinfoflex3 {
   padding: 10px;
-  color: rgb(0, 0, 0);
-  background-color: #dbdbdb;
+  color: rgb(255, 255, 255);
+
+  background-color: #a5a5a5e1;
 
   border: none;
 }
@@ -50,6 +52,14 @@
   margin-right: 100px;
   border: none;
   box-shadow: 4px 0px 6px #626262;
+}
+//pdf download
+.pdfflex {
+  display: flex;
+  flex-direction: row;
+}
+.pdflist {
+  width: 400px;
 }
 //add preferences
 .addroom {
@@ -116,6 +126,7 @@
 }
 .selectroom {
   width: auto;
+  min-width: 200px;
 }
 .listname {
   margin-top: 4px;
@@ -160,6 +171,56 @@
   text-align: center;
   margin-right: 5px;
   margin-bottom: 5px;
+}
+
+.question-mark-button {
+  //content:"\f059";
+  background: 0 0;
+  border: 0;
+  padding: 1px;
+  border-radius: 50%;
+  font-size: smaller;
+  color: black;
+}
+
+.content-button {
+  width: 25px;
+  margin-left: 3px;
+  position: relative;
+  top: 6px;
+}
+
+//allotment result
+.AllotmentResult > .heading {
+  margin-top: 40px;
+}
+
+.heading > legend {
+  background-color: #000;
+  color: #fff;
+  padding: 5px 7px;
+}
+
+.greenShow {
+  color: green;
+}
+
+.bold-room {
+  font-weight: bold;
+}
+
+.Apply-button {
+  font-size: medium;
+  font-weight: bold;
+  color: white;
+  border-radius: 8px;
+  background-color: rgb(1, 163, 69);
+  padding: 2px 4px;
+  transition-duration: 0.4s;
+  margin-top: 10px;
+}
+.Apply-button:disabled {
+  opacity: 50%;
 }
 @media (max-width: 720px) {
   .preferenceflex {

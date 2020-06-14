@@ -2,6 +2,7 @@ import React from "react";
 import validator from "validator";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
+import ModalLoad from "../LoadingModal.js";
 
 class Login extends React.Component {
   constructor(props) {
@@ -9,11 +10,13 @@ class Login extends React.Component {
     this.state = {
       error: "",
       redirect: false,
-      disabledbutton: false,
+
+      modalshow: undefined,
     };
   }
   Submitted = async (e) => {
     e.preventDefault();
+    this.setState(() => ({ modalshow: true }));
     this.setState(() => ({ disabledbutton: true }));
     const password = e.target.password.value;
     const username = e.target.username.value.trim();
@@ -54,7 +57,7 @@ class Login extends React.Component {
       }
       this.setState(() => ({ error: msg }));
     }
-    this.setState(() => ({ disabledbutton: false }));
+    this.setState(() => ({ modalshow: undefined }));
   };
 
   setRedirect = () => {
@@ -70,6 +73,8 @@ class Login extends React.Component {
   render() {
     return (
       <div className="temp">
+        {" "}
+        {this.state.modalshow && <ModalLoad />}
         {this.renderRedirect()}
         <form onSubmit={this.Submitted}>
           {this.state.error && <p className="errorshow">{this.state.error}</p>}
@@ -97,12 +102,7 @@ class Login extends React.Component {
             />
           </p>
           <div className="fptag">
-            <input
-              disabled={this.state.disabledbutton}
-              className="loginsubmit"
-              type="submit"
-              value={this.state.disabledbutton ? "Please Wait" : "Submit"}
-            />
+            <input className="loginsubmit" type="submit" value="Submit" />
 
             <p>
               <Link to="/forgotPassword">Forget Password</Link>

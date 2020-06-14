@@ -1,14 +1,16 @@
 import React from "react";
 import axios from "axios";
+import ModalLoad from "./LoadingModal.js";
 
 class Signup extends React.Component {
   state = {
     error: "",
     disabled: false,
+    modalshow: undefined,
   };
   submitSignup = async (e) => {
     e.preventDefault();
-    this.setState(() => ({ disabled: true }));
+    this.setState(() => ({ disabled: true, modalshow: true }));
     const firstName = e.target.elements.firstName.value.trim();
     const lastName = e.target.elements.lastName.value.trim();
     const email = e.target.elements.email.value.trim();
@@ -44,11 +46,12 @@ class Signup extends React.Component {
       }
       this.setState(() => ({ error: msg }));
     }
-    this.setState(() => ({ disabled: false }));
+    this.setState(() => ({ disabled: false, modalshow: undefined }));
   };
   render() {
     return (
       <div className="signupflex">
+        {this.state.modalshow && <ModalLoad />}
         <div className="signupflex2">
           <h2 className="singuptag">Sign Up Here...</h2>
           <form className="form" onSubmit={this.submitSignup}>

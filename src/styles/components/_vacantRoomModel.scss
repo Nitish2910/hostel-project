@@ -1,0 +1,91 @@
+.non-moveable-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px;
+  border-bottom: 2px solid black;
+}
+.vacantrooms {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.vacantlymodal {
+  padding: 60%;
+  background-color: cyan;
+}
+
+.vacantRoomModel {
+  width: 80%;
+  padding: 10px;
+  position: absolute;
+}
+.maintainflex {
+  display: flex;
+  flex-direction: column;
+}
+.vacantRoomModel {
+  bottom: 10px;
+  top: 100px;
+  overflow-y: auto;
+}
+
+//end
+
+.vacantRoomModelButton {
+  color: #f50606;
+  margin: 0;
+  float: right;
+  padding: 0;
+  cursor: pointer;
+  background: 0 0;
+  border: 0;
+  position: relative;
+  top: -20px;
+  font-size: x-large;
+}
+
+.vacantRoomModelButton:hover {
+  opacity: 100%;
+  font-weight: bold;
+}
+
+.fixedSelect {
+  width: 20%;
+  margin-left: 2px;
+}
+
+.need-box {
+  margin-right: 5px;
+
+  font-size: 20px;
+  margin-bottom: 9px;
+  color: white;
+  float: left;
+}
+
+.prefix-part {
+  background-color: #0681f5;
+  overflow: hidden;
+  padding: 5px 8px 5px 8px;
+}
+
+.suffix-part {
+  background-color: #3c53b8;
+  padding: 5px 8px 5px 8px;
+}
+
+.prefix-color {
+  background-color: #0681f5;
+  color: #0681f5;
+}
+
+.suffix-color {
+  background-color: #3c53b8;
+  color: #3c53b8;
+}
+
+.margin-selectbar {
+  margin-top: 20px;
+}

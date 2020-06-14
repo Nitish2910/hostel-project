@@ -9,12 +9,20 @@ export default class AllotmentResult extends React.Component {
     result: "G21",
     applied: false,
     error: "",
+    color: "",
   };
   componentDidMount = () => {
+    // console.log(this.props.User);
+    // console.log(this.props.User.round)
+    // console.log(!this.props.User.editable)
+    // console.log(this.props.User.nextRound)
     this.setState(() => ({
       round: this.props.User.round,
       editable: this.props.User.editable,
       result: this.props.User.result ? this.props.User.result : "",
+      error: (this.props.User.round === 1 && !this.props.User.editable && this.props.User.nextRound)
+        ? "You have already applied for next round"
+        : "",
     }));
   };
 
@@ -23,6 +31,7 @@ export default class AllotmentResult extends React.Component {
   };
   applyForNextRound = async (e) => {
     e.preventDefault();
+    this.setState(() => ({}))
 
     try {
       if (this.props.User.nextRound) throw new Error();
@@ -35,13 +44,15 @@ export default class AllotmentResult extends React.Component {
       await axios.get(url, config);
       this.setState(() => ({
         error: "you have successfully applied for next Round",
+        color: "green"
       }));
       this.props.appliedForNextRound();
     } catch (e) {
       this.setState(() => ({
         error: this.props.User.nextRound
-          ? "you have already applied"
+          ? "You have already applied for next round."
           : "please try again later",
+        color: "red",
       }));
     }
   };
@@ -58,22 +69,27 @@ export default class AllotmentResult extends React.Component {
         } else {
           return (
             <div>
-              <p>Your got room {this.state.result}</p>
+              <p>Your have alloted room <span className="bold-room">{this.state.result}</span></p>
               {this.state.round === 1 && (
                 <form onSubmit={this.applyForNextRound}>
-                  <input
-                    type="checkbox"
-                    htmlFor="wantround"
-                    name="wantround"
-                    onChange={this.handleChange}
-                    checked={this.state.applied}
-                  />
-                  <span id="wantroom">Apply for Round-2</span>
-                  <input
-                    type="submit"
-                    value="Apply"
-                    disabled={!this.state.applied}
-                  />
+                  <label>
+                    <input
+                      type="checkbox"
+                      htmlFor="wantround"
+                      name="wantround"
+                      onChange={this.handleChange}
+                      checked={this.state.applied}
+                    />
+                    <span id="wantroom">Apply for Round-2</span>
+                  </label>
+                  <div>
+                    <input
+                      type="submit"
+                      value="Apply"
+                      disabled={!this.state.applied}
+                      className="Apply-button"
+                    />
+                  </div>
                 </form>
               )}
             </div>
@@ -84,10 +100,14 @@ export default class AllotmentResult extends React.Component {
   };
 
   render() {
+    console.log(this.state.error)
     return (
-      <div>
-        {this.state.error && <p className="errorshow">{this.state.error}</p>}
-        {this.handleShow()}
+      <div className="AllotmentResult">
+        <fieldset className="heading">
+          <legend>Your status</legend>
+          {this.state.error && <p className={this.state.color === "red" ? "errorshow" : "greenShow"}>{this.state.error}</p>}
+          {this.handleShow()}
+        </fieldset>
       </div>
     );
   }
