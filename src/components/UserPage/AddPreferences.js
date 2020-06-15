@@ -6,7 +6,6 @@ import Modal from "react-modal";
 import OptionModal from "./vacantRoomModel";
 import logo from "./../../styles/components/questionmark.png";
 
-
 export default class AddPrefernces extends React.Component {
   state = {
     normalFloors: this.props.User.vacantRooms.map((detail) => detail.prefix),
@@ -27,20 +26,18 @@ export default class AddPrefernces extends React.Component {
           ? this.props.User.disabledRooms[0].rooms
           : []
         : this.props.User.vacantRooms.length > 0
-          ? this.props.User.round === 2
-            ? this.props.User.vacantRooms[0].rooms.map((room) => room[0])
-            : this.props.vacantRooms[0].rooms
-          : [],
+        ? this.props.User.round === 2
+          ? this.props.User.vacantRooms[0].rooms.map((room) => room[0])
+          : this.props.vacantRooms[0].rooms
+        : [],
     disabledQuota: this.props.User.disabledQuota,
     errormessage: undefined,
     error: undefined,
     value: "",
     //for vacant field purpose
     openVacantModal: false,
+    waiting: false,
   };
-
-
-
 
   checkPreferenceList = (Room) => {
     if (this.props.User.disabled && this.state.disabledQuota) {
@@ -92,6 +89,7 @@ export default class AddPrefernces extends React.Component {
 
   sendAllValue = async (e) => {
     e.preventDefault();
+    this.setState(() => ({ waiting: true }));
 
     const referral = e.target.elements.referral.value.trim();
     const referee = e.target.elements.referee.value.trim();
@@ -144,6 +142,7 @@ export default class AddPrefernces extends React.Component {
         this.setState(() => ({ error: msg }));
       }
     }
+    this.setState(() => ({ waiting: false }));
     //console.log(data);
   };
 
@@ -188,13 +187,14 @@ export default class AddPrefernces extends React.Component {
         if (detail.prefix === floorNo) rooms = detail.rooms;
       });
     } else {
-      this.props.User.round === 2 ? this.props.User.vacantRooms.forEach((detail) => {
-        if (detail.prefix === floorNo)
-          rooms = detail.rooms.map((room) => room[0])
-      })
+      this.props.User.round === 2
+        ? this.props.User.vacantRooms.forEach((detail) => {
+            if (detail.prefix === floorNo)
+              rooms = detail.rooms.map((room) => room[0]);
+          })
         : this.props.User.vacantRooms.forEach((detail) => {
-          if (detail.prefix === floorNo) rooms = detail.rooms;
-        });
+            if (detail.prefix === floorNo) rooms = detail.rooms;
+          });
     }
     this.setState(() => ({ rooms: rooms, value: "", floorNo: floorNo }));
   };
@@ -260,10 +260,8 @@ export default class AddPrefernces extends React.Component {
   };
   changeSelect = (value) => {
     this.setState(() => ({ value: value }));
-
   };
   showRooms = () => {
-
     if (this.state.rooms.length > 0) {
       return (
         <div className="room">
@@ -319,11 +317,10 @@ export default class AddPrefernces extends React.Component {
 
   /*open vacant function Modal*/
   changeVacantModel = () => {
-    this.setState(() => ({ openVacantModal: !this.state.openVacantModal }))
-  }
+    this.setState(() => ({ openVacantModal: !this.state.openVacantModal }));
+  };
 
-
-  //close 
+  //close
 
   //render
   render() {
@@ -358,9 +355,10 @@ export default class AddPrefernces extends React.Component {
           <div className="preferenceflex">
             <div>
               {" "}
-              {this.props.User.round === 2 &&
+              {this.props.User.round === 2 && (
                 <div>
-                  <p>Check your vacant room
+                  <p>
+                    Check your vacant room
                     <button
                       onClick={this.changeVacantModel}
                       className="question-mark-button"
@@ -374,7 +372,8 @@ export default class AddPrefernces extends React.Component {
                     openVacantModal={this.state.openVacantModal}
                     changeVacantModel={this.changeVacantModel}
                   />
-                </div>}
+                </div>
+              )}
               <form className="addroomform" onSubmit={this.handleAddRoom}>
                 {this.props.User.disabled && (
                   <p>
@@ -457,7 +456,7 @@ export default class AddPrefernces extends React.Component {
                   className="preferencesubmit"
                   type="submit"
                   name="Sumit"
-                  value="Submit"
+                  value={this.state.waiting ? "Submitting" : "Submit"}
                 />
               </p>
             </form>

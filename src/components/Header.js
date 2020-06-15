@@ -1,10 +1,20 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 
 class Header extends React.Component {
+  state = {
+    logout: false,
+  };
+  flip = () => {
+    this.setState((s) => ({
+      logout: !s.logout,
+    }));
+  };
+
   render() {
     return (
       <div className="header0">
+        {(this.state.logout || this.flip()) && <Redirect to="/" />}
         <div>
           <div className="headerflex">
             <div className="logoinssertion"></div>
@@ -55,7 +65,14 @@ class Header extends React.Component {
               Support{" "}
             </NavLink>
             {(this.props.admin || this.props.user) && (
-              <NavLink to="/" onClick={this.props.logout} className="logout">
+              <NavLink
+                to="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  this.props.logout(this.flip);
+                }}
+                className="logout"
+              >
                 {" "}
                 LogOut{" "}
               </NavLink>

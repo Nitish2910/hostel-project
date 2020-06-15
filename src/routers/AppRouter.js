@@ -12,17 +12,20 @@ import NotFoundPage from "../components/NotFoundPage";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Passwordreset from "../components/forgetPasswordPage";
+import ModalLoad from "../components/LoadingModal.js";
 
 class AppRouter extends React.Component {
   state = {
     isAdmin: false,
     isUser: false,
     refresh: false,
+    modalshow: undefined,
   };
 
   //this method is used to check whether the user is logged in or not
   UNSAFE_componentWillMount = async () => {
     if (localStorage.getItem("userData")) {
+      this.setState(() => ({ modalshow: true }));
       try {
         this.setState(() => ({ refresh: true }));
         const userData = JSON.parse(localStorage.getItem("userData"));
@@ -45,6 +48,7 @@ class AppRouter extends React.Component {
         this.setState(() => ({ refresh: false }));
         localStorage.removeItem("userData");
       }
+      this.setState(() => ({ modalshow: undefined }));
     }
   };
 
@@ -54,7 +58,7 @@ class AppRouter extends React.Component {
     userData.admin = data.admin;
     localStorage.setItem("userData", JSON.stringify(userData));
     console.log(data.User.vacantRooms);
-    /*parsing the vacant room and disable quota*/
+    // /parsing the vacant room and disable quota/;
     data.User.vacantRooms &&
       (data.User.vacantRooms = JSON.parse(data.User.vacantRooms));
     data.User.disabledRooms &&
@@ -75,7 +79,7 @@ class AppRouter extends React.Component {
     } else return <Component authenticated={this.authenticated} />;
   };
 
-  logout = async () => {
+  logout = async (flip) => {
     //logging out from backend
     try {
       const token = JSON.parse(localStorage.getItem("userData")).token;
@@ -93,48 +97,56 @@ class AppRouter extends React.Component {
         isAdmin: false,
         isUser: false,
       }));
+      flip();
     } catch (e) {}
   };
 
   render() {
     return (
-      !this.state.refresh && (
-        <BrowserRouter>
-          <div className="basicflex">
-            <Header
-              logout={this.logout}
-              admin={this.state.isAdmin}
-              user={this.state.isUser}
-            />
-            <div>
-              <Switch>
-                <Route exact path="/" component={Homepage} exact={true} />
-                <Route exact path="/login">
-                  {this.getComponent(Loginpage)}
-                </Route>
-                <Route exact path="/signup">
-                  {this.getComponent(Signup)}
-                </Route>
-                <Route exact path="/help" component={HelpPage} />
-                <Route exact path="/forgotPassword" component={Passwordreset} />
-                {this.state.isUser && (
-                  <Route exact path="/user">
-                    <Userpage User={this.state.User} />
+      <div>
+        {this.state.modalshow && <ModalLoad />}
+        {!this.state.refresh && (
+          <BrowserRouter>
+            <div className="basicflex">
+              <Header
+                logout={this.logout}
+                admin={this.state.isAdmin}
+                user={this.state.isUser}
+              />
+              <div>
+                <Switch>
+                  <Route exact path="/" component={Homepage} exact={true} />
+                  <Route exact path="/login">
+                    {this.getComponent(Loginpage)}
                   </Route>
-                )}
+                  <Route exact path="/signup">
+                    {this.getComponent(Signup)}
+                  </Route>
+                  <Route exact path="/help" component={HelpPage} />
+                  <Route
+                    exact
+                    path="/forgotPassword"
+                    component={Passwordreset}
+                  />
+                  {this.state.isUser && (
+                    <Route exact path="/user">
+                      <Userpage User={this.state.User} />
+                    </Route>
+                  )}
 
-                {this.state.isAdmin && (
-                  <Route exact path="/admin">
-                    <Adminpage User={this.state.User} />
-                  </Route>
-                )}
-                <Route component={NotFoundPage} />
-              </Switch>
+                  {this.state.isAdmin && (
+                    <Route exact path="/admin">
+                      <Adminpage User={this.state.User} />
+                    </Route>
+                  )}
+                  <Route component={NotFoundPage} />
+                </Switch>
+              </div>
+              <Footer />
             </div>
-            <Footer />
-          </div>
-        </BrowserRouter>
-      )
+          </BrowserRouter>
+        )}
+      </div>
     );
   }
 }
