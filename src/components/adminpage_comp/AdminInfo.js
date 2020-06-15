@@ -1,16 +1,52 @@
 import React from "react";
+import axios from "axios";
 import ChangeAdminpassword from "./ChangeAdminpassword";
 
 export default class AdminInfo extends React.Component {
   state = {
-    infobutton: true,
+    variable: 1,
+    error: "",
   };
 
   handleinfo = () => {
-    if (!this.state.infobutton) this.setState(() => ({ infobutton: true }));
+    this.setState(() => ({ variable: 1 }));
   };
   handlepassword = () => {
-    if (this.state.infobutton) this.setState(() => ({ infobutton: false }));
+    this.setState(() => ({ variable: 2 }));
+  };
+
+  handleresult = () => {
+    this.setState(() => ({ variable: 3 }));
+  };
+
+  handleDownload = async (hostelName) => {
+    try {
+      const url = `https://hostel-allotment-api.herokuapp.com/admin/result?hostelName=${hostelName}`;
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      const config = { headers: { Authorization: userData.token } };
+      await axios.get(url, config);
+      this.setState(() => ({ error: "" }));
+    } catch (e) {
+      this.setState(() => ({ error: "!!! Please refresh the page" }));
+    }
+  };
+  downloadList = (inbox) => {
+    return inbox.map((hostelName, index) => (
+      <div className="pdfflex">
+        <div>
+          {" "}
+          <p className="pdflist" key={index}>
+            Download result of {hostelName}
+          </p>
+        </div>
+        <div>
+          {" "}
+          <button onClick={(e) => this.handleDownload(hostelName)}>
+            download
+          </button>
+        </div>
+      </div>
+    ));
   };
   render() {
     return (
@@ -20,27 +56,46 @@ export default class AdminInfo extends React.Component {
           <div>
             <button
               className={
-                this.state.infobutton ? "userinfoflex3" : "userinfoflex2"
+                this.state.variable === 1 ? "userinfoflex3" : "userinfoflex2"
               }
               onClick={this.handleinfo}
             >
-              Your info
+              Your Info
             </button>
 
             <button
               className={
-                this.state.infobutton ? "userinfoflex2" : "userinfoflex3"
+                this.state.variable === 2 ? "userinfoflex3" : "userinfoflex2"
               }
               onClick={this.handlepassword}
             >
-              change password
+              Change Password
+            </button>
+            <button
+              className={
+                this.state.variable === 3 ? "userinfoflex3" : "userinfoflex2"
+              }
+              onClick={this.handleresult}
+            >
+              Download Results
             </button>
           </div>
           <div className="overflowcontrol">
-            {this.state.infobutton ? (
-              yourinfo(this.props.User.name)
-            ) : (
-              <ChangeAdminpassword />
+            {this.state.variable === 1 ? yourinfo(this.props.User.name) : ""}
+            {this.state.variable === 2 ? <ChangeAdminpassword /> : ""}
+            {this.state.variable === 3 && (
+              <div>
+                {this.state.error && (
+                  <p className="error">{this.state.error}</p>
+                )}
+                <h3>Download PDF file of Declared Results...</h3>
+
+                {this.props.User.inbox.length === 0 ? (
+                  <p>Currently no results declared.</p>
+                ) : (
+                  <div>{this.downloadList(this.props.User.inbox)}</div>
+                )}
+              </div>
             )}
           </div>
         </div>
@@ -52,6 +107,7 @@ const yourinfo = (name) => {
   return (
     <div className="spacing">
       <h4>Welcome back {name}</h4>
+
       <p>Your room allotment is under process.</p>
     </div>
   );
