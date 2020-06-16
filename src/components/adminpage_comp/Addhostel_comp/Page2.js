@@ -65,31 +65,34 @@ class Page2 extends React.Component {
           <h3 className="page2.1">Upload .csv file here...</h3>
         </div>
         {this.state.error && <p className="errorshow">{this.state.error}</p>}
-        <p>
-          column headers must be same as provided <b>Userid</b>,<b>Email</b>,
-          <b>Name</b>,<b>Rank</b>,<b>Disable</b>
-        </p>
-        {this.props.uploaded && <p>you have already uploaded the CSV</p>}
-        <form className="container" onSubmit={this.handleupload}>
-          <input type="file" name="csvData" accept=".csv" />
-          <input type="submit" value="Upload" />
-        </form>{" "}
-        {this.state.inValidMessages.length > 0 &&
-          this.state.inValidMessages.map((msg, index) => (
-            <h3 className="errorshow" key={index}>
-              {msg}
-            </h3>
-          ))}
-        <button className="csvbuttons" onClick={this.props.prevStep}>
-          Back
-        </button>
-        <button
-          className="csvbuttons"
-          disabled={!this.props.uploaded}
-          onClick={this.props.nextStep}
-        >
-          Next
-        </button>
+        <div className="overflowcontrol">
+          {" "}
+          <p>
+            column headers must be same as provided <b>Userid</b>,<b>Email</b>,
+            <b>Name</b>,<b>Rank</b>,<b>Disable</b>
+          </p>
+          {this.props.uploaded && <p>you have already uploaded the CSV</p>}
+          <form className="container" onSubmit={this.handleupload}>
+            <input type="file" name="csvData" accept=".csv" />
+            <input type="submit" value="Upload" />
+          </form>{" "}
+          {this.state.inValidMessages.length > 0 &&
+            this.state.inValidMessages.map((msg, index) => (
+              <h3 className="errorshow" key={index}>
+                {msg}
+              </h3>
+            ))}
+          <button className="csvbuttons" onClick={this.props.prevStep}>
+            Back
+          </button>
+          <button
+            className="csvbuttons"
+            disabled={!this.props.uploaded}
+            onClick={this.props.nextStep}
+          >
+            Next
+          </button>
+        </div>
       </div>
     );
   }

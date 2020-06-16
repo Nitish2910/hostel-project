@@ -114,8 +114,8 @@ class Page1 extends React.Component {
         {this.state.errormessage && (
           <p className="errorshow">{this.state.errormessage}</p>
         )}
-        <form onSubmit={this.saveAndContinue}>
-          <h4>Enter Hostel Details</h4>
+        <h4>Enter Hostel Details</h4>
+        <form className="overflowcontrol" onSubmit={this.saveAndContinue}>
           <p>Hostel Name</p>
           <input
             className="hosteldetails"

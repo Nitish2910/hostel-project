@@ -53,21 +53,29 @@ class Page3 extends React.Component {
         ) : (
           <h1 className="heading111">Update Hostel Details</h1>
         )}
-        <p>
-          Provide the Date for allotment and final submit for processing.....
-        </p>
-        {this.state.errormessage && (
-          <p className="errorshow">{this.state.errormessage}</p>
-        )}
-        <form onSubmit={this.saveAndContinue}>
-          <input className="page3" type="date" name="date" required={true} />
+        <h3>Scheduling...</h3>
+        <div className="overflowcontrol">
+          {" "}
           <p>
-            <button className="csvbuttons" onClick={this.props.prevStep}>
-              Back
-            </button>
-            <input className="csvbuttons" type="submit" value="Final Submit" />
+            Provide the Date for allotment and final submit for processing.....
           </p>
-        </form>
+          {this.state.errormessage && (
+            <p className="errorshow">{this.state.errormessage}</p>
+          )}
+          <form onSubmit={this.saveAndContinue}>
+            <input className="page3" type="date" name="date" required={true} />
+            <p>
+              <button className="csvbuttons" onClick={this.props.prevStep}>
+                Back
+              </button>
+              <input
+                className="csvbuttons"
+                type="submit"
+                value="Final Submit"
+              />
+            </p>
+          </form>
+        </div>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import validator from "validator";
+import lock from "./lock.png";
 class Passwordreset extends React.Component {
   state = {
     Email: "",
@@ -145,7 +146,10 @@ class Passwordreset extends React.Component {
     const Page1 = (
       <div className="box">
         <div className="heading-box">
-          <h3 className="headingxz">Password Reset</h3>
+          <h3 className="headingxz">
+            <img className="lock" src={lock} />
+            Password Reset
+          </h3>
           <hr />
         </div>
         <p className="description-otp">

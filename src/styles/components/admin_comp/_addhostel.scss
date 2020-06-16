@@ -9,12 +9,12 @@
   justify-content: space-between;
 }
 .hosteldetails {
-  width: 210px;
+  width: 280px;
   padding: 2px 0px 2px 0px;
   text-align: center;
 
-  background-color: rgb(233, 225, 216);
-  box-shadow: 0px 0px 8px #9b9a9a inset;
+  background-color: rgb(238, 238, 238);
+  box-shadow: 0px 0px 8px #a8a8a8 inset;
 }
 .hosteldetailssave {
   background-color: #c1c2c2;
@@ -75,4 +75,9 @@
   margin: 15px auto;
   border: 1px solid rgb(255, 255, 255);
   border-radius: 5px;
+}
+@media (max-width: 720px) {
+  .hosteldetails {
+    width: 100%;
+  }
 }
