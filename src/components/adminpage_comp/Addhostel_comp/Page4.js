@@ -8,7 +8,7 @@ class Success extends Component {
 
   render() {
     return (
-      <div>
+      <div className="widthsetting">
         <h1 className="overflowcontrol">Details Successfully Saved</h1>
       </div>
     );

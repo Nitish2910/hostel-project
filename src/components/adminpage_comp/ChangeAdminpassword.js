@@ -74,44 +74,36 @@ export default class ChangeAdminpassword extends React.Component {
           onReset={this.resetInput}
         >
           {this.state.error && <p className="errorshow">{this.state.error}</p>}
-          <p>
-            <label htmlFor="id_prevPassword">Old Password</label>{" "}
-            <input
-              className="float"
-              type="password"
-              id="id_prevPassword"
-              name="prevPassword"
-              required={true}
-              minLength={8}
-              maxLength={15}
-            />
-          </p>
-
-          <p>
-            <label htmlFor="id_newPassword">New Password</label>
-            <input
-              className="float"
-              type="password"
-              id="id_newPassword"
-              name="newPassword"
-              required={true}
-              minLength={8}
-              maxLength={15}
-            />
-          </p>
-
-          <p>
-            <label htmlFor="id_retypePassword">Re-Enter Password</label>
-            <input
-              className="float"
-              type="password"
-              id="id_retypePassword"
-              name="retypePassword"
-              required={true}
-              minLength={8}
-              maxLength={15}
-            />
-          </p>
+          <p className="idretypePassword">Old Password</p>{" "}
+          <input
+            className="float"
+            type="password"
+            id="id_prevPassword"
+            name="prevPassword"
+            required={true}
+            minLength={8}
+            maxLength={15}
+          />
+          <p className="idretypePassword">New Password</p>
+          <input
+            className="float"
+            type="password"
+            id="id_newPassword"
+            name="newPassword"
+            required={true}
+            minLength={8}
+            maxLength={15}
+          />
+          <p className="idretypePassword">Re-Enter Password</p>
+          <input
+            className="float"
+            type="password"
+            id="id_retypePassword"
+            name="retypePassword"
+            required={true}
+            minLength={8}
+            maxLength={15}
+          />
           <div className="setreset">
             {" "}
             <input className="submitbuttonspace" type="reset" name="reset" />

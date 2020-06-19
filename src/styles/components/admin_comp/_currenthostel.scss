@@ -1,21 +1,25 @@
 .currenthostels {
-  margin: 8px;
+  margin: auto;
+  margin-bottom: 6px;
   padding: 12px;
-  background-color: #33333323;
-  border-bottom: 2px solid #7a7979;
-  border-right: 3px solid #585757;
+  background-image: linear-gradient(to left, #008eecb6, #36d8e448, #008eec);
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-overflow: hidden;
-  box-shadow: 0px 0px 15px #cecece inset;
+  box-shadow: 0px 0px 15px #cecece00 inset;
 }
 .divcurrenthostels {
-  margin: 15px;
-  width: 90%;
-  overflow: auto;
+  margin: auto;
+  padding-top: 30px;
+  width: 80%;
+  min-width: 200px;
+  overflow: hidden;
 }
 .hostelnamesflex {
+  color: #000000;
+  font-size: 16px;
   display: flex;
   flex-direction: row;
 }
@@ -23,12 +27,15 @@
   min-width: 230px;
 }
 .removebutton {
+  padding: 10px;
   margin-top: 10px;
   margin-left: 5px;
   align-self: start;
-  border-right: 2px solid #505050;
-  border-bottom: 1px solid #4b4b4b;
-  font-size: small;
+  border: none;
+  border-right: 2px solid #535151;
+  border-bottom: 1px solid #666666;
+  font-size: 14px;
+  background-color: #d7fbff;
   padding: 3px 10px 3px 10px;
 }
 .removebutton:active {
@@ -40,18 +47,4 @@
   border-right: 3px solid #929292;
 }
 @media (max-width: 720px) {
-  .divcurrenthostels {
-    margin: -30px;
-    width: 100%;
-    overflow: auto;
-  }
-  .currenthostels {
-    margin: 8px;
-    padding: 12px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-overflow: hidden;
-  }
 }

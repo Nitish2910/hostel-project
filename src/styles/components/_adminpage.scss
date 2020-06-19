@@ -1,47 +1,46 @@
 //burger
 .burger {
   padding: 28px 38px 30px 38px;
-
   background-image: url("../../images/burger.png");
   background-size: cover;
-
   border: none;
-  background-color: #727374;
+  background-color: #909090;
   background-repeat: no-repeat;
   margin-top: -10px;
-  margin-left: 5px;
+  margin-left: -10px;
   font-size: 22px;
   float: left;
 }
 
 //main
+.bring-middle {
+  text-align: center;
+  margin: auto;
+  padding: 20px;
+}
 .flex-container0 {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  overflow: auto;
 }
 .flex-container1 {
   position: absolute;
-  // overflow: visible;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 30%;
-  min-width: 250px;
-  padding-top: 20px;
+  width: 380px;
+  padding-top: 60px;
   height: 100%;
-  background-color: #0000004d;
-  //  box-shadow: 0px 0px 20px #021831 inset;
+  background-color: #008cff6e;
 }
 
 .flexdiv {
   color: #fdfdfd;
   padding: 0px;
   background-color: #0059be;
-  // box-shadow: 0px 0px 12px 6px #0000002d inset;
+
   width: 100%;
   padding: 30px;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
   text-align: center;
 
   font-size: 18px;
@@ -54,9 +53,8 @@
   background-color: #0077ff;
   width: 100%;
   padding: 24px;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
   text-align: center;
-
   font-size: 28px;
   font-weight: bolder;
   border: none;
@@ -69,8 +67,8 @@
 }
 
 .admindiv {
-  padding-left: 50px;
-  margin-top: 0px;
+  margin: auto;
+  width: 90%;
   padding-bottom: 40px;
   height: 100%;
   background-color: rgb(255, 255, 255);
@@ -80,12 +78,13 @@
 }
 
 .overflowcontrol {
-  margin-bottom: 50px;
-  overflow: auto;
+  padding-top: 10px;
+  margin: auto;
+  text-align: center;
+  width: 100%;
   background-image: linear-gradient(#0285ff31, #ffffff00, #0285ff31);
-  min-height: 300px;
-  padding: 30px;
-  padding-left: 120px;
+  min-height: 360px;
+  margin-bottom: 60px;
 }
 .flex2 {
   display: flex;
@@ -96,12 +95,42 @@
 .allheadings {
   background-color: #d6d6d6;
   border-bottom: 2px solid #929292;
-  // box-shadow: 0px 0px 22px #01339e inset;
-  margin: 0px;
+  margin-top: 0px;
   padding: 10px;
+  padding-left: 16px;
+  padding-right: 10px;
   text-align: right;
   color: #00020a;
+  border-top: 6px solid #47fdee;
 }
 
 @media (max-width: 720px) {
+  .allheadings {
+    font-size: 24px;
+    border-top: 4px solid #47fdee;
+  }
+  .burger {
+    padding: 24px 32px 24px 32px;
+  }
+  .heading111 {
+    font-size: 26px;
+    border-bottom: 1px solid rgb(0, 0, 0);
+  }
+
+  .admindiv {
+    width: 95%;
+  }
+  .overflowcontrol {
+    min-height: 400px;
+  }
+  .flex-container1 {
+    width: 60%;
+    padding-top: 60px;
+  }
+  .flexdiv {
+    font-size: 16px;
+  }
+  .buttonactive {
+    font-size: 22px;
+  }
 }

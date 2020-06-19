@@ -20,25 +20,31 @@
   border: none;
 }
 .spacing {
-  margin-bottom: 160px;
+  text-align: center;
+  padding-top: 60px;
 }
 //change password style
 .Changepasstag {
   text-decoration: underline;
+  text-align: center;
+}
+.idretypePassword {
+  text-align: left;
 }
 
 .formdiv {
+  margin: auto;
   font-size: 15px;
   font-style: oblique;
   font-weight: lighter;
-  max-width: 360px;
-  margin-left: 20px;
+  max-width: 320px;
 }
 .float {
-  width: 70%;
-
-  padding: 6px;
-  text-align: center;
+  text-align: left;
+  width: 100%;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  padding: 8px;
   background-color: rgba(0, 0, 0, 0.082);
   box-shadow: -2px -4px 4px #00000017 inset;
   border: none;
@@ -46,26 +52,30 @@
 }
 .setreset {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  padding: 20px;
 }
 .submitbuttonspace {
-  // background-color: #adadad;
   background-color: #0061a1;
   color: #ffffff;
   padding: 6px 18px 6px 18px;
-  margin-right: 100px;
+
   border: none;
   box-shadow: 6px 6px 6px #0447949c;
 }
 //pdf download
 .pdfflex {
+  margin: auto;
+  margin-bottom: 4px;
+  width: 440px;
   display: flex;
-  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: #0051ff1e;
+  padding: 10px 0px 10px 0px;
 }
 .pdflist {
   margin: auto;
-  margin-bottom: 20px;
-  width: 360px;
+  max-width: 360px;
 }
 //add preferences
 .addroom {
@@ -180,7 +190,6 @@
 }
 
 .question-mark-button {
-  //content:"\f059";
   background: 0 0;
   border: 0;
   padding: 1px;
@@ -249,7 +258,24 @@
   .selectlimit {
     width: 200px;
   }
+  .pdfflex {
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .pdflist {
+    max-width: 280px;
+  }
+  .userinfoflex2 {
+    padding: 8px 6px 8px 6px;
+  }
+  .userinfoflex3 {
+    padding: 8px 6px 8px 6px;
+  }
 }
+
+//special-width
 @media (max-width: 960px) {
   .preferenceflex {
     flex-direction: column;

@@ -129,7 +129,7 @@ class Adminpage extends React.Component {
   };
   render() {
     return (
-      <div>
+      <div className="flex-container0">
         <div
           ref={(node) => {
             this.node = node;
