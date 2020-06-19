@@ -6,6 +6,12 @@ import AdminInfo from "./adminpage_comp/AdminInfo";
 import ShowUsers from "./showUsers/ShowUsers";
 
 class Adminpage extends React.Component {
+  constructor() {
+    super();
+
+    this.handleClick = this.handleClick.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
+  }
   state = {
     admininfo: true,
     addhostel: false,
@@ -13,7 +19,34 @@ class Adminpage extends React.Component {
     upcominghostel: false,
     edithostel: false,
     showUsers: false,
+    sidebox: false,
+    burger: true,
+    popupVisible: false,
   };
+  //start burger
+  handleClick() {
+    if (!this.state.popupVisible) {
+      // attach/remove event handler
+      document.addEventListener("click", this.handleOutsideClick, false);
+    } else {
+      document.removeEventListener("click", this.handleOutsideClick, false);
+    }
+
+    this.setState((prevState) => ({
+      popupVisible: !prevState.popupVisible,
+    }));
+  }
+
+  handleOutsideClick(e) {
+    // ignore clicks on the component itself
+    if (this.node.contains(e.target)) {
+      return;
+    }
+
+    this.handleClick();
+  }
+
+  //end burger
   admininfo = () => {
     this.setState(() => ({
       admininfo: true,
@@ -88,59 +121,106 @@ class Adminpage extends React.Component {
       showUsers: false,
     }));
   };
+  burgerclick = () => {
+    this.setState(() => ({
+      sidebox: true,
+      burger: false,
+    }));
+  };
   render() {
     return (
       <div>
-        <div className="flex-container0">
-          <div className="flex-container1">
-            <button
-              className={this.state.admininfo ? "buttonactive" : "flexdiv"}
-              onClick={this.admininfo}
+        <div
+          ref={(node) => {
+            this.node = node;
+          }}
+        >
+          {" "}
+          {this.state.popupVisible && (
+            <div
+              className="flex-container1"
+              ref={(node) => {
+                this.node = node;
+              }}
             >
-              Admin Info
-            </button>
-            <button
-              className={this.state.addhostel ? "buttonactive" : "flexdiv"}
-              onClick={this.add}
-            >
-              Add New Hostel
-            </button>
-            <button
-              className={this.state.currenthostel ? "buttonactive" : "flexdiv"}
-              onClick={this.current}
-            >
-              Current Hostels
-            </button>
-            <button
-              className={this.state.upcominghostel ? "buttonactive" : "flexdiv"}
-              onClick={this.upcoming}
-            >
-              Next Allotments
-            </button>
+              <button
+                className={this.state.admininfo ? "buttonactive" : "flexdiv"}
+                onClick={this.admininfo}
+                ref={(node) => {
+                  this.node = node;
+                }}
+              >
+                Admin Info
+              </button>
+              <button
+                className={this.state.addhostel ? "buttonactive" : "flexdiv"}
+                onClick={this.add}
+                ref={(node) => {
+                  this.node = node;
+                }}
+              >
+                Add New Hostel
+              </button>
+              <button
+                className={
+                  this.state.currenthostel ? "buttonactive" : "flexdiv"
+                }
+                onClick={this.current}
+                ref={(node) => {
+                  this.node = node;
+                }}
+              >
+                Current Hostels
+              </button>
+              <button
+                className={
+                  this.state.upcominghostel ? "buttonactive" : "flexdiv"
+                }
+                onClick={this.upcoming}
+                ref={(node) => {
+                  this.node = node;
+                }}
+              >
+                Next Allotments
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div className="flex2">
+          <div>
+            <h1 className="allheadings">
+              {" "}
+              <button
+                className={this.state.burger ? "burger" : "no-burger"}
+                // onClick={this.burgerclick}
+                onClick={this.handleClick}
+                ref={(node) => {
+                  this.node = node;
+                }}
+              ></button>
+              Admin Workspace
+            </h1>
           </div>
-          <div className="flex2">
-            <h1 className="allheadings">Admin Workspace</h1>
-            <div className={this.state.showUsers ? "" : "admindiv"}>
-              {(this.state.showUsers && (
-                <ShowUsers
-                  hostel={this.state.hostelDetail}
-                  closeUsers={this.closeUsers}
+
+          <div className={this.state.showUsers ? "" : "admindiv"}>
+            {(this.state.showUsers && (
+              <ShowUsers
+                hostel={this.state.hostelDetail}
+                closeUsers={this.closeUsers}
+              />
+            )) ||
+              ((this.state.edithostel || this.state.addhostel) && (
+                <Addhostel existing={this.state.hostelDetail} />
+              )) ||
+              (this.state.admininfo && <AdminInfo User={this.props.User} />) ||
+              (this.state.currenthostel && (
+                <Currenthostel
+                  edithostel={this.edithostel}
+                  showUsers={this.showUsers}
                 />
               )) ||
-                ((this.state.edithostel || this.state.addhostel) && (
-                  <Addhostel existing={this.state.hostelDetail} />
-                )) ||
-                (this.state.admininfo && (
-                  <AdminInfo User={this.props.User} />
-                )) ||
-                (this.state.currenthostel && (
-                  <Currenthostel
-                    edithostel={this.edithostel}
-                    showUsers={this.showUsers}
-                  />
-                )) ||
-                (this.state.upcominghostel && <Upcomingevents />)}
-            </div>
+              (this.state.upcominghostel && <Upcomingevents />)}
           </div>
         </div>
       </div>

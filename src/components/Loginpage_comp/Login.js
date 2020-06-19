@@ -3,6 +3,8 @@ import validator from "validator";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import ModalLoad from "../LoadingModal.js";
+import pass from "../../images/pass.png";
+import user from "../../images/user.png";
 
 class Login extends React.Component {
   constructor(props) {
@@ -78,8 +80,9 @@ class Login extends React.Component {
         {this.renderRedirect()}
         <form onSubmit={this.Submitted}>
           {this.state.error && <p className="errorshow">{this.state.error}</p>}
-          <p className="headings">Enter User_name</p>
-          <p>
+          <p className="headings"> User_id</p>
+          <p className="login-icon-flex">
+            <img className="login-icons" src={user} />
             <input
               className="logininput"
               type="text"
@@ -89,8 +92,9 @@ class Login extends React.Component {
               maxLength={50}
             />
           </p>
-          <p className="headings">Enter Password</p>
-          <p>
+          <p className="headings">Password</p>
+          <p className="login-icon-flex">
+            <img className="login-icons" src={pass} />
             <input
               className="logininput"
               type="password"
@@ -102,10 +106,10 @@ class Login extends React.Component {
             />
           </p>
           <div className="fptag">
-            <input className="loginsubmit" type="submit" value="Submit" />
+            <input className="loginsubmit" type="submit" value="Login" />
 
-            <p>
-              <Link to="/forgotPassword">Forget Password</Link>
+            <p className="forgetright">
+              <Link to="/forgotPassword">forgot password</Link>
             </p>
           </div>
           <p className="signupoption">

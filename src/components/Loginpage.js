@@ -6,7 +6,6 @@ class Loginpage extends React.Component {
     return (
       <div className="loginflex">
         <div className="login">
-          <h2 className="logintag">Log In Here...</h2>
           <Login authenticated={this.props.authenticated} />
         </div>
       </div>

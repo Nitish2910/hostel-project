@@ -44,7 +44,7 @@ class Notice extends React.Component {
   render() {
     return (
       <div className="notice">
-        <h1 className="h1tag">Notifications</h1>
+        <p className="h1tag">Allotment Notifications</p>
         <marquee className="marq" direction="up" scrollamount="3">
           <div>
             {/* temporary data */}

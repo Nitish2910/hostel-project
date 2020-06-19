@@ -65,7 +65,7 @@ export default class ChangeAdminpassword extends React.Component {
     return (
       <div>
         <h3 className="Changepasstag">
-          Change Password below by entering following credentials
+          Change Password below by entering the following credentials:
         </h3>
 
         <form
@@ -75,7 +75,7 @@ export default class ChangeAdminpassword extends React.Component {
         >
           {this.state.error && <p className="errorshow">{this.state.error}</p>}
           <p>
-            <label htmlFor="id_prevPassword">Old Password</label>
+            <label htmlFor="id_prevPassword">Old Password</label>{" "}
             <input
               className="float"
               type="password"

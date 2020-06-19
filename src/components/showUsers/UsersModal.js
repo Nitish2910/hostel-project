@@ -5,9 +5,9 @@ export default class UserModal extends React.Component {
     state = {
         error: "",
         open: true,
-        submitting: false
+        submitting: false,
     };
-    submitted = async e => {
+    submitted = async (e) => {
         e.preventDefault();
         this.setState(() => ({ submitting: true }));
         const name = e.target.elements.name.value.trim().toLowerCase();
@@ -46,12 +46,12 @@ export default class UserModal extends React.Component {
                 this.close();
             } else {
                 this.setState(() => ({
-                    error: "Please Try Again Later"
+                    error: "Please Try Again Later",
                 }));
             }
         } else {
             this.setState(() => ({
-                error: "please Update Details befor submit"
+                error: "please Update Details befor submit",
             }));
         }
         this.setState(() => ({ submitting: false }));
@@ -65,7 +65,7 @@ export default class UserModal extends React.Component {
         return (
             <Modal
                 isOpen={this.state.open}
-                ariaHideApp={false}
+                overlayClassName="userModalOverlay"
                 className="UserModalWrapper"
             >
                 <button className="UMclose" onClick={this.close}>
