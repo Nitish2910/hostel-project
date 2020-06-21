@@ -4,8 +4,19 @@
     justify-content: space-evenly;
     padding: 18px;
     text-align: center;
-    background-color: #c0ddda;
-    box-shadow: 0 0 38px #07626e inset;
+    //background-color: #c0ddda;
+    //box-shadow: 0 0 38px #07626e inset;
+    //box-shadow: 0 0 38px #2444c3 inset;
+    box-shadow: 0px 16px 38px #0c2792 inset;
+    background-color: #5b97d0;
+}
+
+.SearchPanel{
+    display:flex;
+    //justify-content: space-around;
+    margin-top: 3.5px;
+    flex-direction:row;
+    justify-content:center;
 }
 .spsortBy {
     font-size: 14px;
@@ -15,8 +26,8 @@
     width: 120px;
 }
 .spsearch {
-    font-size: smaller;
-    width: 110px;
+    font-size: large;
+    width: 250px;
 }
 .spsubmit {
     font-size: 15px;
@@ -47,8 +58,12 @@
 .spsubmit:disabled {
     opacity: 0.5;
 }
-.findspace {
-    margin-top: 6px;
+
+.flex-row-search-header{
+    display:flex;
+    flex-direction: row;
+    justify-content:center;
+    
 }
 @media (max-width: 720px) {
     .spWrapper {
@@ -67,6 +82,7 @@
     }
     .spsearch {
         width: 110px;
+        font-size:small;
     }
     .spbox {
         height: 20px;
@@ -74,4 +90,19 @@
     .spsubmit {
         height: 25px;
     }
+    // .flex-cloumn-mobile{
+    //     display:flex;
+    //     flex-direction: column;
+    // }
+    .findspace {
+        margin-top: 6px;
+    }
+
 }
+@media(max-width:900px){
+    .flex-row-search-header{
+        display:flex;
+        flex-direction: column;
+    }
+}
+

@@ -25,43 +25,51 @@ class SearchPanel extends React.Component {
     render() {
         return (
             <form className="spWrapper" onSubmit={this.handleSubmit}>
-                <div>
-                    <span className="spout">
-                        <b>SortBy:</b>
-                        {"  "}
-                        <select name="sortBy" className="spbox spsortBy">
-                            <option value="rank">Rank</option>
-                            <option value="name">userName</option>
-                        </select>
-                    </span>
-                    <span className="spout">
-                        <b>Order:</b>
-                        {"  "}
-                        <select name="order" className="spbox sporder">
-                            <option value="asc">Ascending</option>
-                            <option value="desc">Descending</option>
-                        </select>
-                    </span>
+                <div className="flex-row-search-header">
+                    {/*search panel div*/}
+                    <div className="SearchPanel">
+                        <span className="spout">
+                            <b>SortBy:</b>
+                            {"  "}
+                            <select name="sortBy" className="spbox spsortBy">
+                                <option value="rank">Rank</option>
+                                <option value="name">userName</option>
+                            </select>
+                        </span>
+                        <span className="spout">
+                            <b>Order:</b>
+                            {"  "}
+                            <select name="order" className="spbox sporder">
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                            </select>
+                        </span>
+                    </div>
+                    {/*find space*/}
+                    <div>
+                        <div className="findspace">
+                            <span className="spout">
+                                <b>Search:</b>
+                                {"  "}
+                                <input
+                                    type="text"
+                                    name="search"
+                                    placeholder="e.g. Name or Userid"
+                                    className="spbox spsearch"
+                                />
+                                <input
+                                    type="submit"
+                                    name="submit"
+                                    value="Find"
+                                    className="spsubmit"
+                                    disabled={this.state.submitting}
+                                />
+                            </span>
+                        </div>
+                    </div>
+                    {/*end*/}
                 </div>
-                <div className="findspace">
-                    <span className="spout">
-                        <b>Search:</b>
-                        {"  "}
-                        <input
-                            type="text"
-                            name="search"
-                            placeholder="e.g. Name or Userid"
-                            className="spbox spsearch"
-                        />
-                        <input
-                            type="submit"
-                            name="submit"
-                            value="Find"
-                            className="spsubmit"
-                            disabled={this.state.submitting}
-                        />
-                    </span>
-                </div>
+
             </form>
         );
     }

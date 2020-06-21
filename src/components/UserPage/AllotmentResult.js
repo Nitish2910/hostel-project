@@ -22,8 +22,8 @@ export default class AllotmentResult extends React.Component {
             result: this.props.User.result ? this.props.User.result : "",
             error:
                 this.props.User.round === 1 &&
-                !this.props.User.editable &&
-                this.props.User.nextRound
+                    !this.props.User.editable &&
+                    this.props.User.nextRound
                     ? "You have already applied for next round"
                     : "",
         }));
@@ -117,24 +117,22 @@ export default class AllotmentResult extends React.Component {
     };
 
     render() {
-        console.log(this.state.error);
+        //console.log(this.state.error);
         return (
             <div className="AllotmentResult">
-                <fieldset className="heading">
-                    <legend>Your status</legend>
-                    {this.state.error && (
-                        <p
-                            className={
-                                this.state.color === "red"
-                                    ? "errorshow"
-                                    : "greenShow"
-                            }
-                        >
-                            {this.state.error}
-                        </p>
-                    )}
-                    {this.handleShow()}
-                </fieldset>
+                <h1 className="heading111">Your Room Status</h1>
+                {this.state.error && (
+                    <p
+                        className={
+                            this.state.color === "red"
+                                ? "errorshow"
+                                : "greenShow"
+                        }
+                    >
+                        {this.state.error}
+                    </p>
+                )}
+                {this.handleShow()}
             </div>
         );
     }

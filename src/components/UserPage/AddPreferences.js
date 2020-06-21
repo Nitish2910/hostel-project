@@ -28,12 +28,12 @@ export default class AddPrefernces extends React.Component {
                     ? this.props.User.disabledRooms[0].rooms
                     : []
                 : this.props.User.vacantRooms.length > 0
-                ? this.props.User.round === 2
-                    ? this.props.User.vacantRooms[0].rooms.map(
-                          (room) => room[0]
-                      )
-                    : this.props.vacantRooms[0].rooms
-                : [],
+                    ? this.props.User.round === 2
+                        ? this.props.User.vacantRooms[0].rooms.map(
+                            (room) => room[0]
+                        )
+                        : this.props.vacantRooms[0].rooms
+                    : [],
         disabledQuota: this.props.User.disabledQuota,
         errormessage: undefined,
         error: undefined,
@@ -197,12 +197,12 @@ export default class AddPrefernces extends React.Component {
         } else {
             this.props.User.round === 2
                 ? this.props.User.vacantRooms.forEach((detail) => {
-                      if (detail.prefix === floorNo)
-                          rooms = detail.rooms.map((room) => room[0]);
-                  })
+                    if (detail.prefix === floorNo)
+                        rooms = detail.rooms.map((room) => room[0]);
+                })
                 : this.props.User.vacantRooms.forEach((detail) => {
-                      if (detail.prefix === floorNo) rooms = detail.rooms;
-                  });
+                    if (detail.prefix === floorNo) rooms = detail.rooms;
+                });
         }
         this.setState(() => ({ rooms: rooms, value: "", floorNo: floorNo }));
     };
@@ -339,7 +339,8 @@ export default class AddPrefernces extends React.Component {
         // console.log(this.state.normalPreferences)
         return (
             <div>
-                <h1 className="heading111">Select your preferences</h1>
+                <h1 className="heading111">Add Preferences</h1>
+                <h1>Select your preferences</h1>{/*className="heading111"*/}
                 <h3>Current Round : {this.props.User.round}</h3>
                 {this.state.error && (
                     <Modal

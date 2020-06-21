@@ -4,14 +4,9 @@ import Currenthostel from "./adminpage_comp/Currenthostel";
 import Upcomingevents from "./adminpage_comp/Upcominghostel";
 import AdminInfo from "./adminpage_comp/AdminInfo";
 import ShowUsers from "./showUsers/ShowUsers";
+import ChangeAdminpassword from "./adminpage_comp/ChangeAdminpassword";
 
 class Adminpage extends React.Component {
-  constructor() {
-    super();
-
-    this.handleClick = this.handleClick.bind(this);
-    this.handleOutsideClick = this.handleOutsideClick.bind(this);
-  }
   state = {
     admininfo: true,
     addhostel: false,
@@ -19,12 +14,11 @@ class Adminpage extends React.Component {
     upcominghostel: false,
     edithostel: false,
     showUsers: false,
-    sidebox: false,
-    burger: true,
+    changePassword: false,
     popupVisible: false,
   };
   //start burger
-  handleClick() {
+  handleClick = () => {
     if (!this.state.popupVisible) {
       // attach/remove event handler
       document.addEventListener("click", this.handleOutsideClick, false);
@@ -35,16 +29,20 @@ class Adminpage extends React.Component {
     this.setState((prevState) => ({
       popupVisible: !prevState.popupVisible,
     }));
-  }
+  };
 
-  handleOutsideClick(e) {
+  handleOutsideClick = (e) => {
     // ignore clicks on the component itself
-    if (this.node.contains(e.target)) {
+
+    try {
+      if (this.node.contains(e.target)) {
+        return;
+      }
+    } catch (e) {
       return;
     }
-
     this.handleClick();
-  }
+  };
 
   //end burger
   admininfo = () => {
@@ -54,6 +52,7 @@ class Adminpage extends React.Component {
       currenthostel: false,
       upcominghostel: false,
       edithostel: false,
+      changePassword: false,
       showUsers: false,
     }));
   };
@@ -65,6 +64,7 @@ class Adminpage extends React.Component {
       upcominghostel: false,
       edithostel: false,
       showUsers: false,
+      changePassword: false,
       hostelDetail: null,
     }));
   };
@@ -76,6 +76,7 @@ class Adminpage extends React.Component {
       upcominghostel: false,
       edithostel: false,
       showUsers: false,
+      changePassword: false,
     }));
   };
   upcoming = () => {
@@ -86,6 +87,7 @@ class Adminpage extends React.Component {
       upcominghostel: true,
       edithostel: false,
       showUsers: false,
+      changePassword: false,
     }));
   };
   edithostel = (hostelDetail) => {
@@ -97,6 +99,7 @@ class Adminpage extends React.Component {
       upcominghostel: false,
       edithostel: true,
       showUsers: false,
+      changePassword: false,
       hostelDetail: hostelDetail,
     }));
   };
@@ -108,6 +111,7 @@ class Adminpage extends React.Component {
       upcominghostel: false,
       edithostel: false,
       showUsers: true,
+      changePassword: false,
       hostelDetail: hostelDetail,
     }));
   };
@@ -119,15 +123,26 @@ class Adminpage extends React.Component {
       upcominghostel: false,
       edithostel: false,
       showUsers: false,
+      changePassword: false,
     }));
   };
-  burgerclick = () => {
+
+  changePasswordFunction = () => {
     this.setState(() => ({
-      sidebox: true,
-      burger: false,
+      admininfo: false,
+      addhostel: false,
+      currenthostel: false,
+      upcominghostel: false,
+      edithostel: false,
+      showUsers: false,
+      changePassword: true,
     }));
   };
   render() {
+    //console.log(this.props.User)
+    const adminName =
+      this.props.User.name.charAt(0).toUpperCase() +
+      this.props.User.name.slice(1).split(" ")[0].toLowerCase();
     return (
       <div className="flex-container0">
         <div
@@ -136,9 +151,11 @@ class Adminpage extends React.Component {
           }}
         >
           {" "}
-          {this.state.popupVisible && (
+          <div>
             <div
-              className="flex-container1"
+              className={
+                this.state.popupVisible ? "flex-container1" : "flex-container11"
+              }
               ref={(node) => {
                 this.node = node;
               }}
@@ -152,6 +169,20 @@ class Adminpage extends React.Component {
               >
                 Admin Info
               </button>
+              {/*Add change password*/}
+              <button
+                className={
+                  this.state.changePassword ? "buttonactive" : "flexdiv"
+                }
+                onClick={this.changePasswordFunction}
+                ref={(node) => {
+                  this.node = node;
+                }}
+              >
+                Change Password
+              </button>
+              {/*end*/}
+
               <button
                 className={this.state.addhostel ? "buttonactive" : "flexdiv"}
                 onClick={this.add}
@@ -184,7 +215,7 @@ class Adminpage extends React.Component {
                 Next Allotments
               </button>
             </div>
-          )}
+          </div>
         </div>
 
         <div className="flex2">
@@ -192,14 +223,14 @@ class Adminpage extends React.Component {
             <h1 className="allheadings">
               {" "}
               <button
-                className={this.state.burger ? "burger" : "no-burger"}
+                className={!this.state.popupVisible ? "burger" : "no-burger"}
                 // onClick={this.burgerclick}
                 onClick={this.handleClick}
                 ref={(node) => {
                   this.node = node;
                 }}
               ></button>
-              Admin Workspace
+              Hello,{adminName}
             </h1>
           </div>
 
@@ -210,6 +241,7 @@ class Adminpage extends React.Component {
                 closeUsers={this.closeUsers}
               />
             )) ||
+              (this.state.changePassword && <ChangeAdminpassword />) ||
               ((this.state.edithostel || this.state.addhostel) && (
                 <Addhostel existing={this.state.hostelDetail} />
               )) ||

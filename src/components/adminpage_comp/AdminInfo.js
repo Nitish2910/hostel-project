@@ -63,7 +63,7 @@ export default class AdminInfo extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="heading111">User Info </h1>
+        <h1 className="heading111">Admin Info </h1>
         <div className="userinfoflex">
           <div>
             <button
@@ -74,7 +74,7 @@ export default class AdminInfo extends React.Component {
             >
               Your Info
             </button>
-
+            {/*
             <button
               className={
                 this.state.variable === 2 ? "userinfoflex3" : "userinfoflex2"
@@ -83,6 +83,7 @@ export default class AdminInfo extends React.Component {
             >
               Change Password
             </button>
+            */}
             <button
               className={
                 this.state.variable === 3 ? "userinfoflex3" : "userinfoflex2"
@@ -95,7 +96,7 @@ export default class AdminInfo extends React.Component {
           <div className="overflowcontrol">
             <div className="bring-middle">
               {this.state.variable === 1 ? yourinfo(this.props.User.name) : ""}
-              {this.state.variable === 2 ? <ChangeAdminpassword /> : ""}
+              {/*this.state.variable === 2 ? <ChangeAdminpassword /> : ""*/}
               {this.state.variable === 3 && (
                 <div>
                   {this.state.error && (
@@ -106,8 +107,8 @@ export default class AdminInfo extends React.Component {
                   {this.props.User.inbox.length === 0 ? (
                     <p>Currently no results declared.</p>
                   ) : (
-                    <div>{this.downloadList(this.props.User.inbox)}</div>
-                  )}
+                      <div>{this.downloadList(this.props.User.inbox)}</div>
+                    )}
                 </div>
               )}
             </div>

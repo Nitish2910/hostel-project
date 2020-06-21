@@ -68,71 +68,76 @@ export default class ChangeAdminpassword extends React.Component {
     render() {
         return (
             <div>
-                <h3>Change Password below by entering following credentials</h3>
+                <h1 className="heading111">Change Password</h1>
+                <div className="overflowcontrol">
+                    <div>
+                        <h3>Change Password below by entering following credentials</h3>
 
-                <form
-                    className="formdiv"
-                    onSubmit={this.handleChangePassword}
-                    onReset={this.resetInput}
-                >
-                    {this.state.error && (
-                        <p className="errorshow">{this.state.error}</p>
-                    )}
-                    <p>
-                        <label htmlFor="id_prevPassword">Old Password</label>
-                        <input
-                            className="float"
-                            type="password"
-                            id="id_prevPassword"
-                            name="prevPassword"
-                            required={true}
-                            minLength={8}
-                            maxLength={15}
-                        />
-                    </p>
+                        <form
+                            className="formdiv"
+                            onSubmit={this.handleChangePassword}
+                            onReset={this.resetInput}
+                        >
+                            {this.state.error && (
+                                <p className="errorshow">{this.state.error}</p>
+                            )}
+                            <p>
+                                <label htmlFor="id_prevPassword">Old Password</label>
+                                <input
+                                    className="float"
+                                    type="password"
+                                    id="id_prevPassword"
+                                    name="prevPassword"
+                                    required={true}
+                                    minLength={8}
+                                    maxLength={15}
+                                />
+                            </p>
 
-                    <p>
-                        <label htmlFor="id_newPassword">New Password</label>
-                        <input
-                            className="float"
-                            type="password"
-                            id="id_newPassword"
-                            name="newPassword"
-                            required={true}
-                            minLength={8}
-                            maxLength={15}
-                        />
-                    </p>
+                            <p>
+                                <label htmlFor="id_newPassword">New Password</label>
+                                <input
+                                    className="float"
+                                    type="password"
+                                    id="id_newPassword"
+                                    name="newPassword"
+                                    required={true}
+                                    minLength={8}
+                                    maxLength={15}
+                                />
+                            </p>
 
-                    <p>
-                        <label htmlFor="id_retypePassword">
-                            Re-Enter Password
-                        </label>
-                        <input
-                            className="float"
-                            type="password"
-                            id="id_retypePassword"
-                            name="retypePassword"
-                            required={true}
-                            minLength={8}
-                            maxLength={15}
-                        />
-                    </p>
-                    <div className="setreset">
-                        <input
-                            className="submitbuttonspace"
-                            type="reset"
-                            name="reset"
-                        />
-                        <input
-                            className="submitbuttonspace"
-                            type="submit"
-                            name="submit"
-                            value="Save"
-                            disabled={this.state.disabled}
-                        />
+                            <p>
+                                <label htmlFor="id_retypePassword">
+                                    Re-Enter Password
+                            </label>
+                                <input
+                                    className="float"
+                                    type="password"
+                                    id="id_retypePassword"
+                                    name="retypePassword"
+                                    required={true}
+                                    minLength={8}
+                                    maxLength={15}
+                                />
+                            </p>
+                            <div className="setreset">
+                                <input
+                                    className="submitbuttonspace"
+                                    type="reset"
+                                    name="reset"
+                                />
+                                <input
+                                    className="submitbuttonspace"
+                                    type="submit"
+                                    name="submit"
+                                    value="Save"
+                                    disabled={this.state.disabled}
+                                />
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
         );
     }
