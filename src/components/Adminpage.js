@@ -45,6 +45,7 @@ class Adminpage extends React.Component {
   };
 
   //end burger
+
   admininfo = () => {
     this.setState(() => ({
       admininfo: true,
@@ -145,27 +146,17 @@ class Adminpage extends React.Component {
       this.props.User.name.slice(1).split(" ")[0].toLowerCase();
     return (
       <div className="flex-container0">
-        <div
-          ref={(node) => {
-            this.node = node;
-          }}
-        >
+        <div>
           {" "}
           <div>
             <div
               className={
                 this.state.popupVisible ? "flex-container1" : "flex-container11"
               }
-              ref={(node) => {
-                this.node = node;
-              }}
             >
               <button
                 className={this.state.admininfo ? "buttonactive" : "flexdiv"}
                 onClick={this.admininfo}
-                ref={(node) => {
-                  this.node = node;
-                }}
               >
                 Admin Info
               </button>
@@ -175,9 +166,6 @@ class Adminpage extends React.Component {
                   this.state.changePassword ? "buttonactive" : "flexdiv"
                 }
                 onClick={this.changePasswordFunction}
-                ref={(node) => {
-                  this.node = node;
-                }}
               >
                 Change Password
               </button>
@@ -186,9 +174,6 @@ class Adminpage extends React.Component {
               <button
                 className={this.state.addhostel ? "buttonactive" : "flexdiv"}
                 onClick={this.add}
-                ref={(node) => {
-                  this.node = node;
-                }}
               >
                 Add New Hostel
               </button>
@@ -197,9 +182,6 @@ class Adminpage extends React.Component {
                   this.state.currenthostel ? "buttonactive" : "flexdiv"
                 }
                 onClick={this.current}
-                ref={(node) => {
-                  this.node = node;
-                }}
               >
                 Current Hostels
               </button>
@@ -208,9 +190,6 @@ class Adminpage extends React.Component {
                   this.state.upcominghostel ? "buttonactive" : "flexdiv"
                 }
                 onClick={this.upcoming}
-                ref={(node) => {
-                  this.node = node;
-                }}
               >
                 Next Allotments
               </button>
