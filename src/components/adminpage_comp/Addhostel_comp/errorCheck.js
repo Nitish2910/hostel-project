@@ -1,4 +1,4 @@
-const isValidRange = range => {
+const isValidRange = (range) => {
     range = range.trim();
     range += ",";
     const reg1 = /^(([A-Z]+[0-9]+(-[A-Z]+[0-9]+)?, ?)+|([0-9]+(-[0-9]+)?, ?)+)$/;
@@ -7,7 +7,7 @@ const isValidRange = range => {
     if (!isNaN(range[0])) return true;
     const A = range.match(reg2);
     if (!A) return true;
-    return A.every(s => {
+    return A.every((s) => {
         const x = s.split("-");
         const min = x[0].length < x[1].length ? x[0].length : x[1].length;
         for (let i = 0; i < min; ) {
@@ -21,7 +21,7 @@ const isValidRange = range => {
     });
 };
 
-const Break = s => {
+const Break = (s) => {
     if (!s.includes("-")) s += "-" + s;
     const detail = {};
     const x = s.split("-");
@@ -29,11 +29,11 @@ const Break = s => {
     detail.name = y[0];
     detail.range = [
         parseInt(x[0].slice(y[0].length)),
-        parseInt(x[1].slice(y[0].length))
+        parseInt(x[1].slice(y[0].length)),
     ];
     return detail;
 };
-const validateRoomCount = A => {
+const validateRoomCount = (A) => {
     A.sort((a, b) => a[0] - b[0]);
     const B = [];
     B.push([A[0][0], A[0][1]]);
@@ -56,10 +56,10 @@ const validateRoomCount = A => {
         throw new Error("rooms per floor must be less or equal to 1000");
 };
 
-const roomFromRange = roomRange => {
-    const splits = roomRange.split(",").map(x => x.trim());
+const roomFromRange = (roomRange) => {
+    const splits = roomRange.split(",").map((x) => x.trim());
     const range = {};
-    splits.forEach(element => {
+    splits.forEach((element) => {
         const detail = Break(element);
         if (range[detail.name]) {
             range[detail.name].push(detail.range);
@@ -69,7 +69,7 @@ const roomFromRange = roomRange => {
         if (Object.keys(range).length > 5)
             throw new Error("total floors should be less than or equal to 5");
     });
-    Object.keys(range).forEach(key => validateRoomCount(range[key]));
+    Object.keys(range).forEach((key) => validateRoomCount(range[key]));
 };
 
 const roomValidation = (roomRange, name) => {

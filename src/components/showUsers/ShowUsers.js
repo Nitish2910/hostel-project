@@ -80,13 +80,7 @@ class ShowUsers extends React.Component {
     };
     todaysDate = (given) => {
         if (!given) return false;
-        const temp = new Date();
-        const curr = new Date(
-            temp.getFullYear(),
-            temp.getMonth(),
-            temp.getDate()
-        ).getTime();
-        return given === curr;
+        return given === new Date().setHours(0, 0, 0, 0);
     };
 
     render() {

@@ -68,10 +68,14 @@
   align-items: center;
   width: 380px;
   padding-top: 70px;
+  z-index: 1;
   height: 750px;
   background-color: #008cff6e; //#008cff6e
   animation-name: example1;
   animation-duration: 0.8s;
+}
+.DisplayNone{
+  display:None;
 }
 //menu closing
 @keyframes example11 {
@@ -91,6 +95,7 @@
   width: 380px;
   padding-top: 70px;
   margin-left: -380px;
+  z-index: 1;
   height: 750px;
   background-color: #008cff6e; //#008cff6e
   animation-name: example11;
@@ -147,6 +152,9 @@
 
 @media (max-width: 720px) {
   .burger {
+    padding: 24px 32px 24px 32px;
+  }
+  .no-burger{
     padding: 24px 32px 24px 32px;
   }
   @keyframes example1 {

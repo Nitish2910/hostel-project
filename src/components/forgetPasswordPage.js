@@ -149,7 +149,7 @@ class Passwordreset extends React.Component {
             <div className="box">
                 <div className="heading-box">
                     <h3 className="headingxz">
-                        <img className="lock" src={lock} />
+                        <img className="lock" src={lock} alt="" />
                         Password Reset
                     </h3>
                     <hr />

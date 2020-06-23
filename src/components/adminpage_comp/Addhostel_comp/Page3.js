@@ -4,10 +4,13 @@ import axios from "axios";
 class Page3 extends React.Component {
   state = {
     errormessage: "",
+    submitting: false,
   };
   saveAndContinue = async (e) => {
     e.preventDefault();
-
+    {
+      this.setState(() => ({ submitting: true }));
+    }
     //validating the date
 
     let temp = new Date();
@@ -44,6 +47,9 @@ class Page3 extends React.Component {
       }
       this.setState(() => ({ errormessage: msg }));
     }
+    {
+      this.setState(() => ({ submitting: false }));
+    }
   };
   render() {
     return (
@@ -58,21 +64,24 @@ class Page3 extends React.Component {
           {" "}
           <form className="widthsetting" onSubmit={this.saveAndContinue}>
             <p>
-              Provide the Date for allotment and final submit for
-              processing.....
+              <b>
+                {" "}
+                Provide the Date for allotment and final submit for
+                processing.....
+              </b>
             </p>
             {this.state.errormessage && (
               <p className="errorshow">{this.state.errormessage}</p>
             )}
             <input className="page3" type="date" name="date" required={true} />
             <p>
-              <button className="csvbuttons" onClick={this.props.prevStep}>
+              <button className="datebuttons" onClick={this.props.prevStep}>
                 Back
               </button>
               <input
-                className="csvbuttons"
+                className="datebuttons"
                 type="submit"
-                value="Final Submit"
+                value={this.state.submitting ? "Submitting" : "Final Submit"}
               />
             </p>
           </form>

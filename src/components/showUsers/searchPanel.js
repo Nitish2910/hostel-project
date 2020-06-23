@@ -14,7 +14,7 @@ class SearchPanel extends React.Component {
             if (re.test(search)) {
                 data.search = `name=${search}`;
             } else {
-                data.search = `userid=${search}`;
+                data.search = `rollNo=${search}`;
             }
         }
         data.sortBy = e.target.elements.sortBy.value;
@@ -54,7 +54,7 @@ class SearchPanel extends React.Component {
                                 <input
                                     type="text"
                                     name="search"
-                                    placeholder="e.g. Name or Userid"
+                                    placeholder="e.g. Name or rollNo"
                                     className="spbox spsearch"
                                 />
                                 <input
@@ -69,7 +69,6 @@ class SearchPanel extends React.Component {
                     </div>
                     {/*end*/}
                 </div>
-
             </form>
         );
     }

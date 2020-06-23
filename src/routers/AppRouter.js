@@ -123,7 +123,6 @@ class AppRouter extends React.Component {
                                         exact
                                         path="/"
                                         component={Homepage}
-                                        exact={true}
                                     />
                                     <Route exact path="/login">
                                         {this.getComponent(Loginpage)}

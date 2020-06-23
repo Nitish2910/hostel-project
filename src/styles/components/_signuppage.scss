@@ -110,7 +110,7 @@
   float: left;
   width: 60px;
   margin-top: -13px;
-  margin-right: -20px;
+  margin-right: -8px;
 }
 .marginsetsignup {
   margin: auto;
@@ -119,9 +119,10 @@
 
 //mobile-view
 
-@media (max-width: 720px) {
+@media (max-width: 620px) {
   .signupalign {
-    display: flex;
+    margin: auto;
+    display: auto;
     flex-direction: column;
     justify-content: space-between;
     margin-bottom: 30px;
@@ -139,12 +140,16 @@
     box-shadow: none;
   }
   .form {
-    margin-left: 30px;
+    margin: auto;
+    margin-left: 40px;
   }
   .signupflex {
     background-image: url("../../images/login-back33.jpg");
   }
   #create_an_Account {
     margin-left: 60px;
+  }
+  .mobileformview {
+    margin: auto;
   }
 }

@@ -97,16 +97,24 @@ class Currenthostel extends React.Component {
                       Show Users
                     </button>
                     <button
-                      className="removebutton"
+                      className={
+                        hostel.editable
+                          ? "removebutton"
+                          : "removebuttondisabled"
+                      }
                       id={hostel._id}
                       onClick={this.handleEdit}
-                      disabled={hostel.Date !== null}
+                      disabled={!hostel.editable}
                     >
                       Edit
                     </button>
                     <button
-                      className="removebutton"
-                      disabled={hostel.Date !== null}
+                      className={
+                        hostel.editable
+                          ? "removebutton"
+                          : "removebuttondisabled"
+                      }
+                      disabled={!hostel.editable}
                       onClick={(e) =>
                         this.handleSelected(hostel.name, hostel._id)
                       }

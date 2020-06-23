@@ -1,5 +1,7 @@
 .errorshow {
-  margin-bottom: 30px;
+  margin: 30px;
+  padding: 20px;
+  font-size: 18px;
   color: #ff0000;
 }
 .box3-1 {
@@ -15,19 +17,15 @@
   margin: auto;
   padding: 20px;
   width: 80%;
-  max-width: 600px;
+  max-width: 450px;
 }
 .hosteldetails {
   width: 100%;
   margin-top: -3px;
-  margin-left:-175px;
   padding: 8px;
-  //text-align: center;
   background-color: rgba(0, 0, 0, 0.04);
-  //box-shadow: -2px -4px 4px #00000017 inset; N
-  box-shadow:10px 4px 6px 1px #00000017 inset;
+  box-shadow: -2px -4px 4px #00000017 inset;
   box-sizing: border-box;
-  width:70%;
   border: none;
   border-bottom: 1px solid #000000;
 }
@@ -40,6 +38,27 @@
   box-shadow: 6px 6px 6px #0447949c;
 }
 .csvbuttons {
+  background-color: #0061a1;
+  color: #ffffff;
+  padding: 8px 18px 8px 18px;
+  margin: 30px;
+  margin-left: 30px;
+  margin-top: 10px;
+  border: none;
+  box-shadow: 6px 6px 6px #0447949c;
+}
+.csvdisabledbutton {
+  color: #ffffff;
+  background-color: #9eb6c5;
+
+  padding: 6px 16px 6px 16px;
+  margin: 30px;
+  margin-left: 30px;
+  margin-top: 10px;
+  border: none;
+  box-shadow: 6px 6px 6px #0447949c;
+}
+.datebuttons {
   background-color: #0061a1;
   color: #ffffff;
   padding: 8px 18px 8px 18px;
@@ -86,7 +105,7 @@
   text-align: center;
   padding: 25px;
   margin: 10px auto;
-  min-width: 200px;
+  width: 400px;
   background-color: #00000021;
 }
 .csv-input {
@@ -97,9 +116,42 @@
   border: 1px solid rgb(255, 255, 255);
   border-radius: 5px;
 }
+.uploadflex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.choosefile {
+  margin: auto;
+  margin-bottom: 20px;
+  margin-left: 100px;
+}
+.uploadfile {
+  padding: 5px;
+  margin: auto;
+  width: 100px;
+  // font-weight: bold;
+  background-color: #020202;
+  box-shadow: 0px 0px 3px 4px #94949454 inset;
+  color: #ffffff;
+}
+.updated-status {
+  color: #01eb01;
+  font-weight: bold;
+}
+
 @media (max-width: 720px) {
   .hosteldetails {
     width: 100%;
     margin-left: 0px;
+  }
+  .container {
+    width: 200px;
+  }
+  .choosefile {
+    margin-left: auto;
+  }
+  .datebuttons {
+    margin-left: 20px;
   }
 }

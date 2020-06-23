@@ -71,7 +71,10 @@ export default class ChangeAdminpassword extends React.Component {
                 <h1 className="heading111">Change Password</h1>
                 <div className="overflowcontrol">
                     <div>
-                        <h3>Change Password below by entering following credentials</h3>
+                        <h3>
+                            Change Password below by entering following
+                            credentials
+                        </h3>
 
                         <form
                             className="formdiv"
@@ -82,7 +85,9 @@ export default class ChangeAdminpassword extends React.Component {
                                 <p className="errorshow">{this.state.error}</p>
                             )}
                             <p>
-                                <label htmlFor="id_prevPassword">Old Password</label>
+                                <label htmlFor="id_prevPassword">
+                                    Old Password
+                                </label>
                                 <input
                                     className="float"
                                     type="password"
@@ -95,7 +100,9 @@ export default class ChangeAdminpassword extends React.Component {
                             </p>
 
                             <p>
-                                <label htmlFor="id_newPassword">New Password</label>
+                                <label htmlFor="id_newPassword">
+                                    New Password
+                                </label>
                                 <input
                                     className="float"
                                     type="password"
@@ -110,7 +117,7 @@ export default class ChangeAdminpassword extends React.Component {
                             <p>
                                 <label htmlFor="id_retypePassword">
                                     Re-Enter Password
-                            </label>
+                                </label>
                                 <input
                                     className="float"
                                     type="password"

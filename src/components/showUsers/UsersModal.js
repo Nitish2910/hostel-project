@@ -67,6 +67,7 @@ export default class UserModal extends React.Component {
                 isOpen={this.state.open}
                 overlayClassName="userModalOverlay"
                 className="UserModalWrapper"
+                ariaHideApp={false}
             >
                 <button className="UMclose" onClick={this.close}>
                     X

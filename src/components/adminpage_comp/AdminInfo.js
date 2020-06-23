@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import ChangeAdminpassword from "./ChangeAdminpassword";
 
 export default class AdminInfo extends React.Component {
   state = {
@@ -107,8 +106,8 @@ export default class AdminInfo extends React.Component {
                   {this.props.User.inbox.length === 0 ? (
                     <p>Currently no results declared.</p>
                   ) : (
-                      <div>{this.downloadList(this.props.User.inbox)}</div>
-                    )}
+                    <div>{this.downloadList(this.props.User.inbox)}</div>
+                  )}
                 </div>
               )}
             </div>

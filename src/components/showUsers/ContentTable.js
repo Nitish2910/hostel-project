@@ -42,7 +42,7 @@ class ContentTable extends React.Component {
                 <table id="userTable">
                     <thead>
                         <tr>
-                            <th>UserId</th>
+                            <th>RollNo</th>
                             <th>Name</th>
                             <th id="showmail">Email</th>
                             <th>Rank</th>
@@ -57,7 +57,7 @@ class ContentTable extends React.Component {
                                     User.disabled ? "disabled" : "notDisabled"
                                 }
                             >
-                                <td>{User.userid}</td>
+                                <td>{User.rollNo}</td>
                                 <td>{User.name}</td>
                                 <td id="showmail">{User.email}</td>
                                 <td>{User.rank}</td>

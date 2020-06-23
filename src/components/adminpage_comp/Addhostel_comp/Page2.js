@@ -7,8 +7,12 @@ class Page2 extends React.Component {
   state = {
     inValidMessages: [],
     error: "",
+    uploading: false,
   };
   handleupload = async (e) => {
+    {
+      this.setState(() => ({ uploading: true }));
+    }
     e.preventDefault();
     e.persist();
     if (!e.target.elements.csvData.files[0]) return;
@@ -50,7 +54,14 @@ class Page2 extends React.Component {
         er = "Please Try Again Later";
       }
 
-      this.setState(() => ({ inValidMessages: msg, error: er }));
+      this.setState(() => ({
+        inValidMessages: msg,
+        error: er,
+        uploading: false,
+      }));
+    }
+    {
+      this.setState(() => ({ uploading: false }));
     }
   };
   render() {
@@ -69,25 +80,42 @@ class Page2 extends React.Component {
           <div className="widthsetting">
             {" "}
             <p>
-              column headers must be same as provided <b>Userid</b>,<b>Email</b>
-              ,<b>Name</b>,<b>Rank</b>,<b>Disable</b>
+              Column Headers in the file to be uploaded must be in the form as:
+              <br /> <b>rollNo</b>,<b>Email</b>,<b>Name</b>,<b>Rank</b>,
+              <b>Disable</b>
             </p>
-            {this.props.uploaded && <p>you have already uploaded the CSV</p>}
-            <form className="container" onSubmit={this.handleupload}>
-              <input type="file" name="csvData" accept=".csv" />
-              <input type="submit" value="Upload" />
-            </form>{" "}
+            {this.props.uploaded && !this.state.uploading && (
+              <p className="updated-status">You have uploaded the CSV File.</p>
+            )}
             {this.state.inValidMessages.length > 0 &&
               this.state.inValidMessages.map((msg, index) => (
                 <h3 className="errorshow" key={index}>
                   {msg}
                 </h3>
               ))}
+            <form className="container" onSubmit={this.handleupload}>
+              <div className="uploadflex">
+                <input
+                  className="choosefile"
+                  type="file"
+                  name="csvData"
+                  accept=".csv"
+                />
+                <input
+                  disabled={this.state.uploading}
+                  className="uploadfile"
+                  type="submit"
+                  value={!this.state.uploading ? "Upload" : "Uploading"}
+                />
+              </div>
+            </form>{" "}
             <button className="csvbuttons" onClick={this.props.prevStep}>
               Back
             </button>
             <button
-              className="csvbuttons"
+              className={
+                this.props.uploaded ? "csvbuttons" : "csvdisabledbutton"
+              }
               disabled={!this.props.uploaded}
               onClick={this.props.nextStep}
             >

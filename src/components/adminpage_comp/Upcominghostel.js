@@ -66,14 +66,8 @@ class Upcomingevents extends React.Component {
         const d = new Date(date);
         return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
     };
-    todaysDate = (given) => {
-        const temp = new Date();
-        const curr = new Date(
-            temp.getFullYear(),
-            temp.getMonth(),
-            temp.getDate()
-        ).getTime();
-        return given === curr;
+    todaysDate = (provided) => {
+        return provided === new Date().setHours(0, 0, 0, 0);
     };
     render() {
         return (

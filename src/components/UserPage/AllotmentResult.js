@@ -12,10 +12,6 @@ export default class AllotmentResult extends React.Component {
         color: "",
     };
     componentDidMount = () => {
-        // console.log(this.props.User);
-        // console.log(this.props.User.round)
-        // console.log(!this.props.User.editable)
-        // console.log(this.props.User.nextRound)
         this.setState(() => ({
             round: this.props.User.round,
             editable: this.props.User.editable,
@@ -61,60 +57,128 @@ export default class AllotmentResult extends React.Component {
         }
     };
 
-    handleShow = () => {
-        if (this.state.editable) {
-            return <p>Allotment is going on</p>;
-        } else {
-            if (this.state.round === 0) {
-                return <p>Allotment is not yet started</p>;
-            } else {
-                if (this.state.result.length === 0) {
-                    return <p>No room is alloted to you</p>;
-                } else {
-                    return (
-                        <div>
-                            <p>
-                                Your have alloted room{" "}
-                                <span className="bold-room">
-                                    {this.state.result}
+    handleShowForm = () => {
+        return (
+            <div>
+                <p>
+                    Your have been alloted room{" "}
+                    <span className="bold-room">
+                        {this.state.result}
+                    </span>
+                </p>
+                {this.state.round === 1 && (
+                    <form onSubmit={this.applyForNextRound}>
+                        <label>
+                            <input
+                                type="checkbox"
+                                htmlFor="wantround"
+                                name="wantround"
+                                onChange={this.handleChange}
+                                checked={this.state.applied}
+                            />
+                            <span id="wantroom">
+                                Apply for Round-2
                                 </span>
-                            </p>
-                            {this.state.round === 1 && (
-                                <form onSubmit={this.applyForNextRound}>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            htmlFor="wantround"
-                                            name="wantround"
-                                            onChange={this.handleChange}
-                                            checked={this.state.applied}
-                                        />
-                                        <span id="wantroom">
-                                            Apply for Round-2
-                                        </span>
-                                    </label>
-                                    <div>
-                                        <input
-                                            type="submit"
-                                            value="Apply"
-                                            disabled={!this.state.applied}
-                                            className="Apply-button"
-                                        />
-                                    </div>
-                                    <p>
-                                        <b style={{ color: "red" }}>Caution:</b>{" "}
-                                        If you apply for next round, then you
-                                        will loose the room currently allocated
-                                        to you.
-                                    </p>
-                                </form>
-                            )}
+                        </label>
+                        <div>
+                            <input
+                                type="submit"
+                                value="Apply"
+                                disabled={!this.state.applied}
+                                className="Apply-button"
+                            />
                         </div>
-                    );
-                }
-            }
+                        <p>
+                            <b style={{ color: "red" }}>Caution:</b>{" "}
+                                If you apply for next round, then you
+                                will loose the room currently allocated
+                                to you.
+                            </p>
+                    </form>
+                )}
+            </div>
+        )
+    }
+
+    handleShow = () => {
+        if (this.state.round === 0 && !this.state.result && !this.state.editable) {//round:0 result : null
+            return <p>Allotment Process hasn't started yet.</p>;                     //editable:false
         }
-    };
+
+        if (this.state.round === 1 && !this.state.result && this.state.editable) {
+            return <p>Please add your Room Preferences in Add Preferences Section for Round-1</p>
+        }
+
+        if (this.state.round === 1 && !this.state.result && !this.state.editable) {
+            return <p>Round 1 result will decleared at 11:30 PM</p>
+        }
+
+        if (this.state.round === 1 && this.state.result === "" && !this.state.editable) {
+            return <p>You have not got the room so you are going to Round 2</p>
+        }
+
+        if (this.state.round === 1 && this.state.result.length > 0 && !this.state.editable) {
+            return this.handleShowForm();
+        }
+
+        if (this.state.round === 1 && this.state.result.length > 0 && !this.state.editable) {
+            return this.handleShowForm();
+        }
+
+        if (this.state.round === 2 && !this.state.result && this.state.editable) {
+            return <p>Please add your Room Preferences in Add Preferences Section for Round-2</p>;
+        }
+
+        if (this.state.round === 2 && !this.state.result && !this.state.editable) {
+            return <p>Result of Round-2 will be decleared at 3:30 PM</p>;
+        }
+
+        if (this.state.round === 2 && this.state.result === "" && !this.state.editable) {
+            return <p>You have not got the room</p>;
+        }
+
+        if (this.state.round === 2 && this.state.result > 0 && !this.state.editable) {
+            return (
+                <p>
+                    Your have been alloted room{" "}
+                    <span className="bold-room">
+                        {this.state.result}
+                    </span>
+                </p>
+            )
+        }
+
+        if (this.state.round === 3 && !this.state.result && !this.state.editable) {
+            return <p>Show link for Download PDF</p>;
+        }
+
+        if (this.state.round === 3 && this.state.result > 0 && !this.state.editable) {
+            return <p>Show link for Download PDF</p>;
+        }
+
+        if (this.state.round === 4 && this.state.result > 0 && !this.state.editable) {
+            return (
+                <div>
+                    <p>
+                        Your have been alloted room{" "}
+                        <span className="bold-room">
+                            {this.state.result}
+                        </span>
+
+                    </p>
+                    {/*<p>Got something for Round 1 and Not applied for next round</p>;*/}
+                </div>
+            )
+        }
+
+
+
+
+
+
+
+    }
+
 
     render() {
         //console.log(this.state.error);
@@ -132,7 +196,10 @@ export default class AllotmentResult extends React.Component {
                         {this.state.error}
                     </p>
                 )}
-                {this.handleShow()}
+                <div className="LargeSize">
+                    {this.handleShow()}
+                </div>
+                {/* round 2 and editable false the show the link to download result */}
             </div>
         );
     }

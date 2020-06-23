@@ -28,12 +28,12 @@ export default class AddPrefernces extends React.Component {
                     ? this.props.User.disabledRooms[0].rooms
                     : []
                 : this.props.User.vacantRooms.length > 0
-                    ? this.props.User.round === 2
-                        ? this.props.User.vacantRooms[0].rooms.map(
-                            (room) => room[0]
-                        )
-                        : this.props.vacantRooms[0].rooms
-                    : [],
+                ? this.props.User.round === 2
+                    ? this.props.User.vacantRooms[0].rooms.map(
+                          (room) => room[0]
+                      )
+                    : this.props.User.vacantRooms[0].rooms
+                : [],
         disabledQuota: this.props.User.disabledQuota,
         errormessage: undefined,
         error: undefined,
@@ -197,12 +197,12 @@ export default class AddPrefernces extends React.Component {
         } else {
             this.props.User.round === 2
                 ? this.props.User.vacantRooms.forEach((detail) => {
-                    if (detail.prefix === floorNo)
-                        rooms = detail.rooms.map((room) => room[0]);
-                })
+                      if (detail.prefix === floorNo)
+                          rooms = detail.rooms.map((room) => room[0]);
+                  })
                 : this.props.User.vacantRooms.forEach((detail) => {
-                    if (detail.prefix === floorNo) rooms = detail.rooms;
-                });
+                      if (detail.prefix === floorNo) rooms = detail.rooms;
+                  });
         }
         this.setState(() => ({ rooms: rooms, value: "", floorNo: floorNo }));
     };
@@ -340,7 +340,8 @@ export default class AddPrefernces extends React.Component {
         return (
             <div>
                 <h1 className="heading111">Add Preferences</h1>
-                <h1>Select your preferences</h1>{/*className="heading111"*/}
+                <h2>Select your preferences</h2>
+                {/*className="heading111"*/}
                 <h3>Current Round : {this.props.User.round}</h3>
                 {this.state.error && (
                     <Modal
@@ -362,9 +363,42 @@ export default class AddPrefernces extends React.Component {
                         </div>
                     </Modal>
                 )}
-                <div className="overflowcontrol">
-                    <div className="preferenceflex">
-                        <div>
+
+                <div>
+                    {/*className="overflowcontrol"*/}
+                    {/*give the backgroundcolor in this div*/}
+                    <div className="Flex-use-changes">
+                        <div className="Width-50">
+                            {/*show list*/}
+                            <div className="preferencelist">
+                                {this.state.errormessage && (
+                                    <Modal
+                                        ariaHideApp={false}
+                                        isOpen={!!this.state.errormessage}
+                                        contentLabel="selected"
+                                        className="modal"
+                                    >
+                                        <p className="errorshow">
+                                            {this.state.errormessage}
+                                        </p>
+
+                                        <div>
+                                            <button
+                                                className="modalbutton"
+                                                id="yes"
+                                                onClick={this.handleModal2}
+                                            >
+                                                Ok
+                                            </button>
+                                        </div>
+                                    </Modal>
+                                )}
+                                {this.showMessage()}
+                                <span>{this.showOptions()}</span>
+                            </div>
+                            {/*showlist*/}
+                        </div>
+                        <div className="Width-50">
                             {" "}
                             {this.props.User.round === 2 && (
                                 <div>
@@ -420,11 +454,11 @@ export default class AddPrefernces extends React.Component {
                                 )}
                                 <div className="selectlimit">
                                     {" "}
-                                    <div>
+                                    <div className="margin-top10">
                                         {" "}
                                         Select floor No. : {this.showFloors()}
                                     </div>
-                                    <div>
+                                    <div className="margin-top10">
                                         Select Room No. : {this.showRooms()}
                                     </div>
                                     <input
@@ -435,71 +469,51 @@ export default class AddPrefernces extends React.Component {
                                     />
                                 </div>
                             </form>
-                        </div>
-                        <div className="preferencelist">
-                            {this.state.errormessage && (
-                                <Modal
-                                    ariaHideApp={false}
-                                    isOpen={!!this.state.errormessage}
-                                    contentLabel="selected"
-                                    className="modal"
-                                >
-                                    <p className="errorshow">
-                                        {this.state.errormessage}
-                                    </p>
-
-                                    <div>
-                                        <button
-                                            className="modalbutton"
-                                            id="yes"
-                                            onClick={this.handleModal2}
-                                        >
-                                            Ok
-                                        </button>
+                            <div className="Margin-10">
+                                {
+                                    <h4 className="underlined">
+                                        {" "}
+                                        Fill the reference details (optional)
+                                    </h4>
+                                }
+                                {/*create a new form for referral and referee*/}
+                                <form onSubmit={this.sendAllValue}>
+                                    <div className="flex-column">
+                                        <input
+                                            type="text"
+                                            className="referenceinput"
+                                            placeholder="referral"
+                                            defaultValue={
+                                                this.props.User.referral
+                                            }
+                                            name="referral"
+                                        />
+                                        <input
+                                            type="text"
+                                            className="referenceinput"
+                                            placeholder="referee"
+                                            defaultValue={
+                                                this.props.User.referee
+                                            }
+                                            name="referee"
+                                        />
                                     </div>
-                                </Modal>
-                            )}
-                            {this.showMessage()}
-                            <span>{this.showOptions()}</span>
+                                    <p>
+                                        {" "}
+                                        <input
+                                            className="preferencesubmit"
+                                            type="submit"
+                                            name="Sumit"
+                                            value={
+                                                this.state.waiting
+                                                    ? "Submitting"
+                                                    : "Submit"
+                                            }
+                                        />
+                                    </p>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        {
-                            <h4 className="underlined">
-                                {" "}
-                                Fill the reference details (optional)
-                            </h4>
-                        }
-                        {/*create a new form for referral and referee*/}
-                        <form onSubmit={this.sendAllValue}>
-                            <input
-                                type="text"
-                                className="referenceinput"
-                                placeholder="referral"
-                                defaultValue={this.props.User.referral}
-                                name="referral"
-                            />
-                            <input
-                                type="text"
-                                className="referenceinput"
-                                placeholder="referee"
-                                defaultValue={this.props.User.referee}
-                                name="referee"
-                            />
-                            <p>
-                                {" "}
-                                <input
-                                    className="preferencesubmit"
-                                    type="submit"
-                                    name="Sumit"
-                                    value={
-                                        this.state.waiting
-                                            ? "Submitting"
-                                            : "Submit"
-                                    }
-                                />
-                            </p>
-                        </form>
                     </div>
                 </div>
             </div>
